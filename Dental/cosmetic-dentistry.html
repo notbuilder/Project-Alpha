@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Cosmetic Dentistry | Empire Smile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: float 7s ease-in-out infinite;
+            margin-top: 2rem;
+            object-fit: cover;
+            max-height: 400px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Luxurious dark theme for cosmetic page */
+        .hero-bg {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('https://images.unsplash.com/photo-1606265752439-1f18756aa5fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+            color: white;
+        }
+
+        .hero-title,
+        .hero-desc {
+            color: white;
+        }
+
+        .hero-title span {
+            color: #38bdf8;
+        }
+
+        /* Lighter blue for dark background */
+        .badge {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .trust-indicators {
+            color: #cbd5e1;
+        }
+
+        .hero-form-wrapper {
+            animation: scaleUp 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">✨</span> Empire<span
+                    class="text-primary">Smile</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="general-dentistry.html">General Exam</a></li>
+                <li><a href="cosmetic-dentistry.html" class="text-primary">Cosmetic</a></li>
+                <li><a href="dental-implants.html">Implants</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero hero-bg">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">Celebrity-Grade Veneers & Whitening</div>
+                <h1 class="hero-title">Unlock Your Most <span>Radiant</span> Smile</h1>
+                <p class="hero-desc">Your smile is your ultimate first impression. From flawless porcelain veneers to
+                    intense Zoom whitening, our elite cosmetic team designs custom, natural-looking results that elevate
+                    your confidence.</p>
+                <img src="https://images.unsplash.com/photo-1598256989800-fea5a18a99db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Beautiful Confident Smile" class="hero-img">
+            </div>
+
+            <div class="hero-form-wrapper">
+                <form class="lead-form" id="leadForm" style="color: #0f172a;">
+                    <h3>Free Virtual Smile Assessment</h3>
+                    <p>Upload your photos later or come in person. Find out what's possible at zero cost.</p>
+                    <div class="form-group"><label>First Name</label><input type="text" placeholder="Sarah" required>
+                    </div>
+                    <div class="form-group"><label>Mobile Number</label><input type="tel" placeholder="(212) 555-0198"
+                            required></div>
+                    <div class="form-group"><label>Primary Goal</label>
+                        <select required>
+                            <option value="">Select your goal...</option>
+                            <option>Whiter Teeth</option>
+                            <option>Fix Crooked/Chipped Teeth (Veneers)</option>
+                            <option>Complete Smile Makeover</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Book My Free Assessment</button>
+                    <p class="privacy">0% Financing Options Available.</p>
+                </form>
+                <div id="formSuccess" class="form-success hidden" style="color: #0f172a;">
+                    <div class="success-icon">✓</div>
+                    <h3>Consultation Requested!</h3>
+                    <p>Our cosmetic coordinator will text you shortly with available slots and instructions for your
+                        assessment!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

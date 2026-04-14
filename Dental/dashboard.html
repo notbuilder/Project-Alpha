@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empire Smile | Admin Backend Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #0f172a;
+            color: white;
+            padding: 2rem 1rem;
+        }
+
+        .sidebar h2 {
+            color: #38bdf8;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .nav-item {
+            padding: 1rem;
+            color: #cbd5e1;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem 3rem;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h3 {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 0;
+        }
+
+        .stat-card p {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+
+        .badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-hero {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .badge-agent {
+            background: #fce7f3;
+            color: #be185d;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            color: #64748b;
+        }
+
+        .refresh-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: #0ea5e9;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            background: #0284c7;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <h2>Empire Smile</h2>
+        <a href="#" class="nav-item active">Lead Dashboard</a>
+        <a href="#" class="nav-item"
+            onclick="if(confirm('Delete all leads?')){localStorage.removeItem('dentalLeads'); location.reload();}">Clear
+            CRM Data</a>
+        <a href="index.html" class="nav-item" target="_blank">View Live Website ↗</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h1 style="margin:0; color:#0f172a;">Sales CRM</h1>
+                <p style="color:#64748b; margin-top:5px;">Manage your inbound appointments and agent conversations.</p>
+            </div>
+            <button class="refresh-btn" onclick="location.reload()">↻ Refresh Leads</button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Conversations/Leads</h3>
+                <p id="totalLeads">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Hero Forms Captured</h3>
+                <p id="heroLeads">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Live Agent Bookings</h3>
+                <p id="agentLeads">0</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="15%">Date / Time</th>
+                        <th width="15%">Lead Source</th>
+                        <th width="20%">Patient Name</th>
+                        <th width="20%">Phone Number</th>
+                        <th width="30%">Service Requested</th>
+                    </tr>
+                </thead>
+                <tbody id="leadsTableBody">
+                    <!-- Javascript injects lead rows here -->
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state">
+                <h2>No leads collected yet.</h2>
+                <p>Open the live website, fill out a hero form, or chat with the Live Agent to see entries appear here
+                    instantly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Fetch leads from localStorage
+            const leads = JSON.parse(localStorage.getItem('dentalLeads')) || [];
+            const tbody = document.getElementById('leadsTableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            // Populate stats
+            document.getElementById('totalLeads').textContent = leads.length;
+            document.getElementById('heroLeads').textContent = leads.filter(l => l.source === 'Hero Form').length;
+            document.getElementById('agentLeads').textContent = leads.filter(l => l.source === 'Live Agent').length;
+
+            // Render table rows
+            if (leads.length > 0) {
+                emptyState.style.display = 'none';
+                // Reverse to show newest first
+                leads.reverse().forEach(lead => {
+                    const tr = document.createElement('tr');
+                    const badgeClass = lead.source === 'Live Agent' ? 'badge-agent' : 'badge-hero';
+                    tr.innerHTML = `
+                        <td style="color:#64748b; font-size:0.9rem;">${lead.date}</td>
+                        <td><span class="badge ${badgeClass}">${lead.source}</span></td>
+                        <td style="font-weight:600;">${lead.name || 'Anonymous'}</td>
+                        <td style="font-family:monospace; font-size:1.1rem;">${lead.phone}</td>
+                        <td>${lead.service}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

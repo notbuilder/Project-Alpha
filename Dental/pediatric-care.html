@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pediatric Dentistry | Empire Smile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: bounce 4s infinite ease-in-out;
+            margin-top: 2rem;
+            object-fit: cover;
+            max-height: 400px;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(254, 240, 138, 0.6)), url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+        }
+
+        .hero-title span {
+            color: #f59e0b;
+        }
+
+        /* Happy Yellow/Orange */
+        .badge {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .hero-form-wrapper {
+            animation: fadeIn 1s ease;
+            border-top: 5px solid #f59e0b;
+        }
+
+        .btn-kids {
+            background-color: #f59e0b !important;
+        }
+
+        .btn-kids:hover {
+            background-color: #d97706 !important;
+            box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.4) !important;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">🎈</span> Empire<span
+                    class="text-primary">Smile</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pediatric-care.html" style="color: #f59e0b;">Pediatric Care</a></li>
+                <li><a href="general-dentistry.html">General Exam</a></li>
+                <li><a href="orthodontics.html">Orthodontics</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero hero-bg">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">Gentle & Fun Dentistry</div>
+                <h1 class="hero-title">A Lifetime of Healthy <span>Little Smiles</span></h1>
+                <p class="hero-desc">We make going to the dentist a fun, stress-free adventure for your child. From
+                    their very first tooth to their teenage years, our gentle pediatric team ensures they love taking
+                    care of their teeth.</p>
+                <img src="https://images.unsplash.com/photo-1598256989800-fea5a18a99db?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Happy Child at Dentist" class="hero-img">
+            </div>
+
+            <div class="hero-form-wrapper">
+                <form class="lead-form" id="leadForm">
+                    <h3 style="color: #b45309;">Book Your Child's Visit</h3>
+                    <p>Stress-free appointments in our kid-friendly NYC clinic.</p>
+                    <div class="form-group"><label>Parent's Name</label><input type="text" placeholder="Sarah Doe"
+                            required></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(212) 555-0198"
+                            required></div>
+                    <div class="form-group"><label>Child's Age</label>
+                        <select required>
+                            <option value="">Select age...</option>
+                            <option>0 - 3 Years</option>
+                            <option>4 - 7 Years</option>
+                            <option>8 - 12 Years</option>
+                            <option>13+ Years</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-kids">Schedule Fun Visit</button>
+                    <p class="privacy">We accept most major insurances.</p>
+                </form>
+                <div id="formSuccess" class="form-success hidden">
+                    <div class="success-icon" style="background-color: #f59e0b;">✓</div>
+                    <h3 style="color: #b45309;">Yay! Appointment Requested</h3>
+                    <p>We can't wait to see your little one. Our front desk will call you to finalize the perfect time
+                        for your schedule!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

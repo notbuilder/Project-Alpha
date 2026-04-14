@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Dentistry in New York | Empire Smile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific Service Page Animations */
+        .hero-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+            margin-top: 2rem;
+            object-fit: cover;
+            max-height: 400px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hero-bg {
+            background: linear-gradient(rgba(240, 249, 255, 0.92), rgba(255, 255, 255, 0.95)), url('https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
+        }
+
+        .hero-title {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-desc {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-form-wrapper {
+            animation: slideIn 1s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><span class="logo-icon">🦷</span> Empire<span
+                    class="text-primary">Smile</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="general-dentistry.html" class="text-primary">General Exam</a></li>
+                <li><a href="cosmetic-dentistry.html">Cosmetic</a></li>
+                <li><a href="dental-implants.html">Implants</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero hero-bg">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">#1 General Dentists in NYC</div>
+                <h1 class="hero-title">Pain-Free & Preventive <span class="text-primary">General Dentistry</span></h1>
+                <p class="hero-desc">Don't wait for tooth pain to disrupt your busy life. Experience premium, gentle
+                    checkups, digital x-rays, and professional cleanings in a spa-like environment. Trusted by over
+                    5,000 New Yorkers.</p>
+                <!-- Relevant engaging image -->
+                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                    alt="Happy Patient at Dentist" class="hero-img">
+            </div>
+
+            <div class="hero-form-wrapper">
+                <form class="lead-form" id="leadForm">
+                    <!-- High conversion offer based on competitor analysis -->
+                    <h3>Claim Your $99 Exam & X-Ray</h3>
+                    <p>New patient special. Lock in your spot before we book out for the week.</p>
+                    <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(212) 555-0198"
+                            required></div>
+                    <div class="form-group"><label>Preferred Time</label>
+                        <select required>
+                            <option value="">Select a time...</option>
+                            <option>Morning (8AM - 12PM)</option>
+                            <option>Afternoon (12PM - 4PM)</option>
+                            <option>Evening (4PM - 6PM)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Claim My Offer Now</button>
+                    <p class="privacy">No hidden fees. 100% secure.</p>
+                </form>
+                <div id="formSuccess" class="form-success hidden">
+                    <div class="success-icon">✓</div>
+                    <h3>Offer Claimed!</h3>
+                    <p>We've secured your $99 offer. Our team will call you within 5 minutes to schedule your exact
+                        appointment time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Using the same script logic for the form! -->
+    <script src="script.js"></script>
+</body>
+
+</html>

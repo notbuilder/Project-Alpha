@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Premier Dental Care in New York. Book your appointment today for a brighter, healthier smile.">
+    <title>Empire Smile | New York Dental Clinic</title>
+    <!-- Modern Typography: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Sticky Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">Our Practice</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Lead Form -->
+    <section class="hero" id="home">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge">Top Rated Clinic in NY</div>
+                <h1 class="hero-title">Experience <span class="text-primary">World-Class</span> Dental Care in New York
+                </h1>
+                <p class="hero-desc">From routine checkups to full cosmetic makeovers, our expert team utilizes
+                    state-of-the-art technology to give you the smile you deserve.</p>
+                <div class="trust-indicators">
+                    <span>✅ 5-Star Reviews</span>
+                    <span>✅ Modern Technology</span>
+                    <span>✅ Gentle Care</span>
+                </div>
+            </div>
+
+            <div class="hero-form-wrapper">
+                <form class="lead-form" id="leadForm">
+                    <h3>Request an Appointment</h3>
+                    <p>Fill out the form below and we will contact you immediately.</p>
+
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(212) 555-0198" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Service Needed</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="routine_checkup">Routine Checkup</option>
+                            <option value="teeth_whitening">Teeth Whitening</option>
+                            <option value="implants">Dental Implants</option>
+                            <option value="invisalign">Invisalign & Braces</option>
+                            <option value="emergency">Emergency Care</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Get My Free Consultation</button>
+                    <p class="privacy">Your information is 100% secure.</p>
+                </form>
+
+                <div id="formSuccess" class="form-success hidden">
+                    <div class="success-icon">✓</div>
+                    <h3>Request Received!</h3>
+                    <p>Thank you for reaching out. Our New York office booking team will call you within the next 15
+                        minutes to confirm your appointment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section bg-light" id="services">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Our <span class="text-primary">Services</span></h2>
+                <p>Comprehensive dental care tailored to your unique needs.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>General Dentistry</h3>
+                    <p>Bi-annual checkups, professional cleanings, digital X-rays, and cavity prevention to keep your
+                        smile healthy.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <h3>Cosmetic Dentistry</h3>
+                    <p>Professional teeth whitening, porcelain veneers, and complete smile makeovers to boost your
+                        confidence.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🔩</div>
+                    <h3>Dental Implants</h3>
+                    <p>Permanent, natural-looking replacement teeth using cutting-edge implant technology for missing
+                        teeth.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🦷</div>
+                    <h3>Orthodontics</h3>
+                    <p>Invisalign clear aligners and traditional braces for patients of all ages to achieve perfect
+                        alignment.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏥</div>
+                    <h3>Emergency Care</h3>
+                    <p>Same-day emergency appointments for severe toothaches, broken teeth, or lost crowns.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👶</div>
+                    <h3>Pediatric Care</h3>
+                    <p>Gentle and compassionate dental care creating a positive experience for your children.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
+                </a>
+                <p>Delivering exceptional dental care to the heart of New York City.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>📍 123 Madison Ave, New York, NY 10016</p>
+                <p>📞 (212) 555-0198</p>
+                <p>✉️ hello@empiresmile-ny.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Office Hours</h4>
+                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 2:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 Empire Smile NY. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
