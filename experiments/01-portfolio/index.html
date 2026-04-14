@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Shoaib Tariq - Personal Website & Frontend Portfolio. Exploring the boundaries of creative web development.">
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:title" content="Shoaib Tariq | Portfolio">
+    <meta property="og:description" content="Personal website & frontend portfolio. Exploring the boundaries of creative web development.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="index.html">
     <title>Shoaib Tariq | Portfolio</title>
     <!-- Modern Typography: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,68 +20,77 @@
     <!-- Ambient Background Gradients -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
-    
-    <!-- Navigation -->
-    <nav class="navbar glass">
-        <div class="container nav-content">
-            <a href="#" class="logo">ST.</a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact" class="btn-primary">Let's Talk</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <header class="hero" id="home">
-        <div class="container hero-content reveal">
-            <h2 class="subtitle">Hello, I'm</h2>
-            <h1 class="title">Shoaib <span class="gradient-text">Tariq</span></h1>
-            <p class="description">I build engaging, modern web experiences that wow the users. Let's create something beautiful together.</p>
-            <div class="cta-group">
-                <a href="#projects" class="btn-primary">View My Work</a>
-                <a href="#contact" class="btn-secondary">Contact Me</a>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar glass">
+            <div class="container nav-content">
+                <a href="#" class="logo">ST.</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact" class="btn-primary">Let's Talk</a></li>
+                </ul>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- About Section -->
-    <section class="section" id="about">
-        <div class="container glass card reveal">
-            <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
-            <p class="section-desc">I'm a passionate creator who loves turning complex problems into elegant, intuitive designs. Always learning and pushing the boundaries of web development and user experience.</p>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section" id="skills">
-        <div class="container reveal">
-            <h2 class="section-title">My <span class="gradient-text">Expertise</span></h2>
-            <div class="grid skills-grid">
-                <div class="glass card skill-card">
-                    <h3>Frontend Development</h3>
-                    <p>Modern HTML/CSS structure, responsive design, and cutting-edge JavaScript to create perfectly dynamic web applications.</p>
-                </div>
-                <div class="glass card skill-card">
-                    <h3>UI / UX Design</h3>
-                    <p>Creating intuitive user interfaces with stunning aesthetics, micro-interactions, and premium layouts.</p>
-                </div>
-                <div class="glass card skill-card">
-                    <h3>Performance Optimization</h3>
-                    <p>Ensuring lightning-fast load times and seamless navigation through optimized assets, reducing latency on all devices.</p>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container hero-content reveal">
+                <p class="subtitle">Hello, I'm</p>
+                <h1 class="title">Shoaib <span class="gradient-text">Tariq</span></h1>
+                <p class="description">I build engaging, modern web experiences that wow the users. Let's create something beautiful together.</p>
+                <div class="cta-group">
+                    <a href="#projects" class="btn-primary">View My Work</a>
+                    <a href="#contact" class="btn-secondary">Contact Me</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <div class="container glass card reveal">
+                <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+                <p class="section-desc">I'm a passionate creator who loves turning complex problems into elegant, intuitive designs. Always learning and pushing the boundaries of web development and user experience.</p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="section" id="skills">
+            <div class="container reveal">
+                <h2 class="section-title">My <span class="gradient-text">Expertise</span></h2>
+                <div class="grid skills-grid">
+                    <article class="glass card skill-card">
+                        <h3>Frontend Development</h3>
+                        <p>Modern HTML/CSS structure, responsive design, and cutting-edge JavaScript to create perfectly dynamic web applications.</p>
+                    </article>
+                    <article class="glass card skill-card">
+                        <h3>UI / UX Design</h3>
+                        <p>Creating intuitive user interfaces with stunning aesthetics, micro-interactions, and premium layouts.</p>
+                    </article>
+                    <article class="glass card skill-card">
+                        <h3>Performance Optimization</h3>
+                        <p>Ensuring lightning-fast load times and seamless navigation through optimized assets, reducing latency on all devices.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer glass" id="contact">
         <div class="container footer-content reveal">
             <h2>Ready to collaborate?</h2>
             <p>Get in touch and let's craft something amazing.</p>
             <a href="mailto:hello@example.com" class="btn-primary">Say Hello</a>
-            <p class="copyright">© 2026 Shoaib Tariq. Crafted with excellence.</p>
+            <p class="copyright">&copy; 2026 Shoaib Tariq. Crafted with excellence.</p>
         </div>
     </footer>
 
