@@ -29,6 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+            const current = document.documentElement.getAttribute("data-theme") || "dark";
+            const next = current === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
+            localStorage.setItem("portfolio-theme", next);
+        });
+    }
+
     // Hamburger menu toggle
     const hamburger = document.getElementById("hamburger");
     const navLinks = document.getElementById("navLinks");

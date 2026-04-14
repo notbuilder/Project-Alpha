@@ -15,6 +15,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Prevent flash of wrong theme — runs before paint
+        const t = localStorage.getItem('portfolio-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+    </script>
 </head>
 <body>
     <!-- Ambient Background Gradients -->
@@ -26,6 +31,10 @@
         <nav class="navbar glass">
             <div class="container nav-content">
                 <a href="#" class="logo">ST.</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon-moon">&#9790;</span>
+                    <span class="theme-icon-sun">&#9728;</span>
+                </button>
                 <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
