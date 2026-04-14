@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv index.html style.css script.js experiments/01-portfolio/)",
+      "Bash(mv Dental/* experiments/02-dental-clinic/)",
+      "Bash(mv 10Pearls-Clone/* experiments/03-10pearls-clone/)",
+      "Bash(rmdir Dental 10Pearls-Clone)"
+    ]
+  }
+}
