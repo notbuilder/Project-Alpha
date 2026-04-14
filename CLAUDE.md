@@ -33,13 +33,14 @@ Shoaib's background is in SEO. When explaining concepts, use SEO analogies to br
 ```
 Project Alpha/
 ├── CLAUDE.md              ← You are here. The AI's guide to this project.
-├── roadmap.html           ← 2-3 month learning roadmap (5 phases)
-├── claude-code-guide.html ← 2-day Claude Code intensive course
 ├── experiments/           ← AI-generated test outputs (learning artifacts)
 │   ├── 01-portfolio/      ← Dark glassmorphism portfolio site
 │   ├── 02-dental-clinic/  ← Multi-page dental site with chatbot + CRM
 │   └── 03-10pearls-clone/ ← B2B corporate site clone
-└── learning/              ← Structured learning modules (growing)
+└── learning/              ← Structured learning modules
+    ├── roadmap.html       ← 12-week master roadmap (5 phases)
+    ├── claude-code/       ← Claude Code mastery
+    │   └── claude-code-guide.html  ← 2-day intensive course
     ├── context-engineering/
     ├── mcp/
     └── prompting/
