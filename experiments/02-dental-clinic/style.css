@@ -355,12 +355,33 @@ body {
 /* Hamburger button */
 .hamburger {
     display: none;
+    flex-direction: column;
+    gap: 5px;
     background: none;
     border: none;
-    color: var(--text-main);
-    font-size: 1.6rem;
     cursor: pointer;
     padding: 0.25rem;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 /* Service card as link */
@@ -394,7 +415,7 @@ a.service-card:hover .card-link {
     }
 
     .hamburger {
-        display: block;
+        display: flex;
     }
 
     .nav-links {

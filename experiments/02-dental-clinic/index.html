@@ -9,6 +9,7 @@
     <meta property="og:title" content="Empire Smile | New York Dental Clinic">
     <meta property="og:description" content="Premier Dental Care in New York. Book your appointment today for a brighter, healthier smile.">
     <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0ea5e9">
     <link rel="canonical" href="index.html">
     <title>Empire Smile | New York Dental Clinic</title>
     <!-- Modern Typography: Plus Jakarta Sans -->
@@ -28,7 +29,11 @@
                 <a href="index.html" class="logo">
                     <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
                 </a>
-                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">&#9776;</button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="index.html" class="text-primary">Home</a></li>
                     <li><a href="#services">Services</a></li>
@@ -46,7 +51,7 @@
 
     <!-- Hero Section with Lead Form -->
     <main>
-        <section class="hero" id="home">
+        <section class="hero" id="home" aria-label="Hero - Book an appointment">
             <div class="container hero-container">
                 <div class="hero-content">
                     <div class="badge">Top Rated Clinic in NY</div>
@@ -103,7 +108,7 @@
         </section>
 
         <!-- Services Section -->
-        <section class="section bg-light" id="services">
+        <section class="section bg-light" id="services" aria-label="Dental services">
             <div class="container">
                 <div class="section-header text-center">
                     <h2>Our <span class="text-primary">Services</span></h2>
@@ -174,7 +179,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer" id="contact" aria-label="Contact information">
         <div class="container footer-container">
             <div class="footer-col">
                 <a href="index.html" class="logo footer-logo">
@@ -201,6 +206,57 @@
             <p>&copy; 2026 Empire Smile NY. All rights reserved.</p>
         </div>
     </footer>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Dentist",
+        "name": "Empire Smile",
+        "description": "Premier Dental Care in New York. Routine checkups, cosmetic dentistry, implants, orthodontics, emergency care, and pediatric dentistry.",
+        "url": "index.html",
+        "telephone": "(212) 555-0198",
+        "email": "hello@empiresmile-ny.com",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Madison Ave",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10016",
+            "addressCountry": "US"
+        },
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "14:00"
+            }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Dental Services",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "General Dentistry" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cosmetic Dentistry" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dental Implants" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Orthodontics" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Emergency Care" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Pediatric Care" } }
+            ]
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "312"
+        }
+    }
+    </script>
 
     <script src="script.js"></script>
 </body>
