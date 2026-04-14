@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Git and GitHub explained for technical beginners. Covers core concepts, commands, worktrees, and how Claude Code leverages Git.">
+    <meta name="theme-color" content="#0f172a">
+    <meta property="og:title" content="Git & GitHub — The Complete Beginner's Guide">
+    <meta property="og:description" content="Git and GitHub explained through SEO analogies. From first commit to advanced worktrees.">
+    <meta property="og:type" content="website">
+    <title>Git & GitHub Guide — Project Alpha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.5);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #f97316;
+            --accent-2: #06b6d4;
+            --green: #22c55e;
+            --red: #ef4444;
+            --yellow: #eab308;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --border: rgba(255,255,255,0.08);
+            --glass: rgba(30,41,59,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .blob { position: fixed; border-radius: 50%; filter: blur(80px); opacity: 0.2; z-index: 0; pointer-events: none; }
+        .blob-1 { width: 400px; height: 400px; background: var(--accent); top: -100px; left: -100px; }
+        .blob-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; right: -80px; }
+
+        /* Nav */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(15,23,42,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            transition: padding 0.3s;
+        }
+        .navbar.scrolled { padding: 0.6rem 2rem; }
+        .nav-logo {
+            font-weight: 800; font-size: 1.1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .nav-links { display: flex; gap: 0.4rem; align-items: center; flex-wrap: wrap; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.8rem;
+            padding: 0.35rem 0.7rem; border-radius: 8px; transition: all 0.3s;
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(249,115,22,0.12); }
+        .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+        /* Hero */
+        .hero {
+            min-height: 55vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center;
+            padding: 7rem 2rem 3rem; position: relative; z-index: 1;
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.1; }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; }
+
+        /* Content */
+        .content { max-width: 880px; margin: 0 auto; padding: 0 2rem 4rem; position: relative; z-index: 1; }
+
+        /* Chapter card */
+        .chapter {
+            background: var(--bg-card); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 20px;
+            padding: 2.5rem; margin-bottom: 2rem;
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .chapter.visible { opacity: 1; transform: translateY(0); }
+
+        .chapter-number {
+            font-size: 0.7rem; font-weight: 700; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem;
+        }
+        .chapter h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
+        .chapter .seo-tag {
+            font-size: 0.8rem; color: var(--accent-2); font-style: italic; margin-bottom: 1.2rem; display: block;
+        }
+        .chapter p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+        .chapter p:last-child { margin-bottom: 0; }
+        .chapter strong { color: var(--text); }
+        .chapter h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 0.7rem; color: var(--text); }
+        .chapter h4 { font-size: 0.95rem; font-weight: 700; margin: 1.2rem 0 0.5rem; color: var(--accent-2); }
+        .chapter ul, .chapter ol { color: var(--text-muted); font-size: 0.95rem; padding-left: 1.3rem; margin-bottom: 1rem; }
+        .chapter li { margin-bottom: 0.4rem; }
+
+        /* Code blocks */
+        .code {
+            position: relative; background: rgba(0,0,0,0.35);
+            border: 1px solid var(--border); border-radius: 10px;
+            margin: 1rem 0; overflow: hidden;
+        }
+        .code-header {
+            background: rgba(0,0,0,0.3); padding: 0.4rem 1rem;
+            font-size: 0.7rem; color: var(--text-muted); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .copy-btn {
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border);
+            color: var(--text-muted); font-size: 0.65rem; padding: 0.2rem 0.5rem;
+            border-radius: 4px; cursor: pointer; font-family: inherit; transition: all 0.3s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+        .copy-btn.copied { color: var(--green); border-color: var(--green); }
+        .code pre {
+            padding: 1rem 1.2rem; overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem; line-height: 1.6; color: #e2e8f0; margin: 0;
+        }
+
+        /* Analogy box */
+        .analogy {
+            border-left: 3px solid var(--accent);
+            background: rgba(249,115,22,0.06);
+            padding: 1rem 1.2rem; border-radius: 0 10px 10px 0; margin: 1.2rem 0;
+        }
+        .analogy-label { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+        .analogy p { color: var(--text-muted); font-size: 0.88rem; font-style: italic; margin-bottom: 0; }
+
+        /* Diagram */
+        .diagram {
+            background: rgba(0,0,0,0.25); border: 1px solid var(--border);
+            border-radius: 10px; padding: 1.5rem; margin: 1.2rem 0;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            line-height: 1.8; color: var(--text-muted); overflow-x: auto;
+        }
+        .diagram .g { color: var(--green); }
+        .diagram .r { color: var(--red); }
+        .diagram .y { color: var(--yellow); }
+        .diagram .b { color: var(--blue); }
+        .diagram .p { color: var(--purple); }
+        .diagram .w { color: var(--text); font-weight: 600; }
+
+        /* Comparison table */
+        .compare { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.88rem; }
+        .compare th { text-align: left; padding: 0.7rem 1rem; background: rgba(0,0,0,0.3); color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); }
+        .compare td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+        .compare td:first-child { color: var(--text); font-weight: 600; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; }
+
+        /* Warning box */
+        .warning {
+            border-left: 3px solid var(--red);
+            background: rgba(239,68,68,0.06);
+            padding: 1rem 1.2rem; border-radius: 0 10px 10px 0; margin: 1.2rem 0;
+        }
+        .warning-label { font-size: 0.7rem; font-weight: 700; color: var(--red); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+        .warning p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 0; }
+
+        /* Footer */
+        .footer { text-align: center; padding: 3rem 2rem; color: var(--text-muted); font-size: 0.8rem; position: relative; z-index: 1; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .chapter { padding: 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,23,42,0.95); padding: 1rem; border-bottom: 1px solid var(--border); }
+            .nav-links.open { display: flex; }
+            .hamburger { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <header>
+        <nav class="navbar">
+            <span class="nav-logo">Git & GitHub Guide</span>
+            <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+            <div class="nav-links">
+                <a href="#what-is-git">What is Git</a>
+                <a href="#what-is-github">GitHub</a>
+                <a href="#core-concepts">Core Concepts</a>
+                <a href="#commands">Commands</a>
+                <a href="#branching">Branching</a>
+                <a href="#remote">Remote</a>
+                <a href="#worktrees">Worktrees</a>
+                <a href="#claude-code">Claude Code</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Git & <span class="gradient-text">GitHub</span><br>From Zero to Confident</h1>
+        <p>A complete guide for technical beginners. Every concept explained with SEO analogies, visual diagrams, and real commands you can run today.</p>
+    </section>
+
+    <main class="content">
+
+        <!-- Chapter 1: What is Git -->
+        <div class="chapter" id="what-is-git">
+            <div class="chapter-number">Chapter 1</div>
+            <h2>What is Git?</h2>
+            <span class="seo-tag">Think: "The Wayback Machine for your code"</span>
+
+            <p>Git is a <strong>version control system</strong>. It tracks every change you make to your files and lets you travel back in time to any previous version. It runs entirely on your computer — no internet needed.</p>
+
+            <p>Without Git, your project history looks like this:</p>
+            <div class="diagram">
+project-final.html<br>
+project-final-v2.html<br>
+project-FINAL-FINAL.html<br>
+project-backup-march.html<br>
+project-dont-touch.html
+            </div>
+
+            <p>With Git, you have <strong>one file</strong> and a complete history of every change:</p>
+            <div class="diagram">
+project.html<br>
+<span class="g">commit a1b2c3</span> &mdash; "Add contact form" (March 15)<br>
+<span class="g">commit d4e5f6</span> &mdash; "Fix mobile nav" (March 14)<br>
+<span class="g">commit g7h8i9</span> &mdash; "Initial layout" (March 12)
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>Git is like Google's cache of your website. Google keeps snapshots of your pages over time. If something breaks, you can check the cached version. Git does the same for code — every "commit" is a cached snapshot you can restore anytime.</p>
+            </div>
+
+            <h3>Why Git Matters</h3>
+            <ul>
+                <li><strong>Undo anything</strong> — broke something? Roll back to the last working version in seconds</li>
+                <li><strong>Work in parallel</strong> — try risky experiments on a "branch" without affecting your main code</li>
+                <li><strong>Collaborate</strong> — multiple people can work on the same project without overwriting each other</li>
+                <li><strong>Audit trail</strong> — see who changed what, when, and why</li>
+            </ul>
+        </div>
+
+        <!-- Chapter 2: What is GitHub -->
+        <div class="chapter" id="what-is-github">
+            <div class="chapter-number">Chapter 2</div>
+            <h2>What is GitHub?</h2>
+            <span class="seo-tag">Think: "Google Drive for your code, but with superpowers"</span>
+
+            <p><strong>Git</strong> = the tool on your computer that tracks changes.<br>
+            <strong>GitHub</strong> = a website that hosts your Git repositories online so you can share, collaborate, and back up your code.</p>
+
+            <div class="diagram">
+<span class="w">Your Computer (Local)</span>          <span class="w">GitHub (Remote)</span><br>
+&boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;      &boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;<br>
+&boxv; Your files        &boxv;  <span class="g">&rarr; push &rarr;</span>  &boxv; Cloud backup     &boxv;<br>
+&boxv; Git history       &boxv;  <span class="b">&larr; pull &larr;</span>  &boxv; Collaboration    &boxv;<br>
+&boxv; Branches          &boxv;      &boxv; Pull requests    &boxv;<br>
+&boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;      &boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>Git is like Screaming Frog (runs locally on your machine). GitHub is like Ahrefs (cloud-based, accessible anywhere, enables collaboration). You can use Git without GitHub, just like you can crawl a site locally without Ahrefs — but the cloud version adds sharing, backups, and team features.</p>
+            </div>
+
+            <h3>Other Platforms Like GitHub</h3>
+            <p>GitHub is the most popular, but alternatives exist: <strong>GitLab</strong>, <strong>Bitbucket</strong>, <strong>Azure DevOps</strong>. They all work with Git — think of them as different CDNs serving the same content.</p>
+        </div>
+
+        <!-- Chapter 3: Core Concepts -->
+        <div class="chapter" id="core-concepts">
+            <div class="chapter-number">Chapter 3</div>
+            <h2>Core Concepts: The Mental Model</h2>
+            <span class="seo-tag">Think: "Draft &rarr; Review Queue &rarr; Published &rarr; Live on CDN"</span>
+
+            <p>Git has 4 "zones" your files move through. Every Git operation is about moving files between these zones:</p>
+
+            <div class="diagram">
+<span class="r">Working Directory</span> &rarr; <span class="y">Staging Area</span> &rarr; <span class="g">Local Repository</span> &rarr; <span class="b">Remote (GitHub)</span><br><br>
+<span class="r">"Your draft"</span>          <span class="y">"Review queue"</span>    <span class="g">"Published"</span>          <span class="b">"Live on CDN"</span><br><br>
+  You edit files    &rarr;  git add       &rarr;  git commit       &rarr;  git push<br>
+  here                  stages them       saves snapshot        uploads to GitHub
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>Working directory = your CMS draft. Staging = the "Schedule for review" queue. Commit = hitting "Publish." Push = deploying to the live CDN. Each step is deliberate — you choose exactly what moves forward, just like choosing which pages to publish.</p>
+            </div>
+
+            <table class="compare">
+                <tr><th>Concept</th><th>What It Is</th><th>SEO Equivalent</th></tr>
+                <tr><td>Repository</td><td>A project folder tracked by Git</td><td>A website/domain</td></tr>
+                <tr><td>Commit</td><td>A saved snapshot with a message</td><td>A page being indexed by Google</td></tr>
+                <tr><td>Branch</td><td>A parallel version of your code</td><td>A staging environment</td></tr>
+                <tr><td>Merge</td><td>Combining a branch back into main</td><td>Deploying staging to production</td></tr>
+                <tr><td>Clone</td><td>Downloading a full repo from GitHub</td><td>Mirroring a site to local</td></tr>
+                <tr><td>Fork</td><td>Your own copy of someone else's repo</td><td>Building a site inspired by a competitor</td></tr>
+                <tr><td>Pull Request</td><td>Asking to merge your changes into a repo</td><td>Submitting a guest post for review</td></tr>
+            </table>
+        </div>
+
+        <!-- Chapter 4: Essential Commands -->
+        <div class="chapter" id="commands">
+            <div class="chapter-number">Chapter 4</div>
+            <h2>Essential Git Commands</h2>
+            <span class="seo-tag">Think: "Your daily SEO toolkit — the 10 commands you'll use 90% of the time"</span>
+
+            <h3>Setup (One-Time)</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Tell Git who you are (like setting up your Google profile)
+git config --global user.name "Shoaib Tariq"
+git config --global user.email "your@email.com"
+
+# Create a new Git repository in the current folder
+git init
+
+# Or download an existing repo from GitHub
+git clone https://github.com/username/repo-name.git</pre>
+            </div>
+
+            <h3>The Daily Workflow</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># 1. Check what's changed (like running a site crawl)
+git status
+
+# 2. See the actual changes line-by-line (like diffing page versions)
+git diff
+
+# 3. Stage specific files for commit (add to review queue)
+git add index.html style.css
+
+# 4. Or stage everything that changed
+git add -A
+
+# 5. Commit with a descriptive message (publish the snapshot)
+git commit -m "Fix mobile nav and add meta descriptions"
+
+# 6. Push to GitHub (deploy to the CDN)
+git push</pre>
+            </div>
+
+            <h3>Viewing History</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># See commit history (like checking your indexation log)
+git log --oneline
+
+# Output:
+# a1b2c3d Fix mobile nav and add meta descriptions
+# e4f5g6h Add contact form to homepage
+# i7j8k9l Initial commit
+
+# See who changed a specific line in a file (blame = audit trail)
+git blame index.html
+
+# See what changed in a specific commit
+git show a1b2c3d</pre>
+            </div>
+
+            <h3>Undoing Things</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Discard changes to a file (revert to last commit)
+git checkout -- index.html
+
+# Unstage a file (remove from review queue, keep changes)
+git restore --staged index.html
+
+# Undo the last commit but keep the changes
+git reset --soft HEAD~1
+
+# Create a NEW commit that reverses a previous one (safe undo)
+git revert a1b2c3d</pre>
+            </div>
+
+            <div class="warning">
+                <div class="warning-label">Caution</div>
+                <p><strong>git reset --hard</strong> permanently deletes uncommitted changes. It's like deleting pages from your CMS with no recycle bin. Always prefer <strong>git revert</strong> — it creates a new commit that undoes the old one, keeping your history intact.</p>
+            </div>
+        </div>
+
+        <!-- Chapter 5: Branching -->
+        <div class="chapter" id="branching">
+            <div class="chapter-number">Chapter 5</div>
+            <h2>Branching: Parallel Universes for Your Code</h2>
+            <span class="seo-tag">Think: "Staging environments — experiment without breaking production"</span>
+
+            <p>A <strong>branch</strong> is a copy of your code that you can modify independently. When you're happy with the changes, you <strong>merge</strong> it back. If it was a mistake, you delete the branch — main is untouched.</p>
+
+            <div class="diagram">
+<span class="w">main</span>    &bull;&mdash;&mdash;&bull;&mdash;&mdash;&bull;&mdash;&mdash;&bull;&mdash;&mdash;&mdash;&mdash;&mdash;&bull;&mdash;&mdash;&bull;<br>
+                   &bsol;              &sol;<br>
+<span class="g">feature</span>       &bull;&mdash;&bull;&mdash;&bull;<br>
+                <span class="text-muted">  (work here)  (merge back)</span>
+            </div>
+
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Create a new branch and switch to it
+git checkout -b add-contact-form
+
+# You're now on "add-contact-form" branch
+# Make changes, commit as normal...
+git add .
+git commit -m "Add contact form with validation"
+
+# Switch back to main
+git checkout main
+
+# Merge the feature branch into main
+git merge add-contact-form
+
+# Delete the branch (it's merged, no longer needed)
+git branch -d add-contact-form</pre>
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>Branches are like staging environments. You'd never test a site redesign on the live production URL — you'd use a staging subdomain, verify everything works, then deploy. Git branches work exactly the same way: experiment in isolation, merge when ready.</p>
+            </div>
+
+            <h3>Common Branch Naming Patterns</h3>
+            <table class="compare">
+                <tr><th>Pattern</th><th>Example</th><th>When to Use</th></tr>
+                <tr><td>feature/</td><td>feature/add-chatbot</td><td>New functionality</td></tr>
+                <tr><td>fix/</td><td>fix/broken-nav-links</td><td>Bug fixes</td></tr>
+                <tr><td>refactor/</td><td>refactor/css-variables</td><td>Code cleanup, no new features</td></tr>
+                <tr><td>experiment/</td><td>experiment/dark-theme</td><td>Trying something risky</td></tr>
+            </table>
+        </div>
+
+        <!-- Chapter 6: Remote & GitHub Workflow -->
+        <div class="chapter" id="remote">
+            <div class="chapter-number">Chapter 6</div>
+            <h2>Working with GitHub (Remote)</h2>
+            <span class="seo-tag">Think: "Syncing your local SEO work to the cloud dashboard"</span>
+
+            <h3>Connecting Local to GitHub</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Add a GitHub repo as your "remote" (like connecting Search Console)
+git remote add origin https://github.com/notbuilder/Project-Alpha.git
+
+# Push your code to GitHub for the first time (-u sets up tracking)
+git push -u origin main
+
+# After the first push, just use:
+git push</pre>
+            </div>
+
+            <h3>Pulling Changes (Syncing)</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Download latest changes from GitHub (like refreshing your crawl data)
+git pull
+
+# See what's on GitHub without downloading yet
+git fetch</pre>
+            </div>
+
+            <h3>Pull Requests (PRs)</h3>
+            <p>A <strong>Pull Request</strong> is how you propose changes on GitHub. Instead of merging directly, you create a PR that others can review, comment on, and approve before merging.</p>
+
+            <div class="diagram">
+<span class="w">1.</span> Create branch locally &rarr; <span class="w">2.</span> Push branch to GitHub &rarr; <span class="w">3.</span> Open PR on GitHub<br>
+&darr;<br>
+<span class="w">4.</span> Team reviews your code &rarr; <span class="w">5.</span> Approve &amp; merge &rarr; <span class="w">6.</span> Branch deleted
+            </div>
+
+            <div class="code">
+                <div class="code-header">Terminal (using GitHub CLI) <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Push your branch to GitHub
+git push -u origin add-contact-form
+
+# Create a Pull Request from the command line
+gh pr create --title "Add contact form" --body "Adds a validated contact form to the homepage"
+
+# List open PRs
+gh pr list
+
+# Merge a PR
+gh pr merge 42</pre>
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>A Pull Request is like submitting a guest post for editorial review. You write the content (code), submit it for review (PR), the editor checks it (code review), requests changes if needed, and finally publishes it (merge). Nobody's work goes live without review.</p>
+            </div>
+        </div>
+
+        <!-- Chapter 7: Git Worktrees -->
+        <div class="chapter" id="worktrees">
+            <div class="chapter-number">Chapter 7</div>
+            <h2>Git Worktrees: Multiple Branches, Simultaneously</h2>
+            <span class="seo-tag">Think: "Having staging AND production open in different browser tabs"</span>
+
+            <p>Normally, you can only have <strong>one branch checked out</strong> at a time. Switching branches changes all your files. <strong>Git worktrees</strong> solve this — they let you check out multiple branches in separate folders simultaneously.</p>
+
+            <h3>The Problem Worktrees Solve</h3>
+            <div class="diagram">
+<span class="r">Without worktrees:</span><br>
+1. Working on feature branch<br>
+2. Urgent bug reported on main<br>
+3. Must stash/commit half-done work<br>
+4. Switch to main, fix bug<br>
+5. Switch back, unstash<br>
+6. Context lost, flow broken<br>
+<br>
+<span class="g">With worktrees:</span><br>
+1. Working on feature in <span class="b">/project</span><br>
+2. Urgent bug reported<br>
+3. Create worktree: <span class="b">/project-hotfix</span> (on main)<br>
+4. Fix bug in the other folder<br>
+5. Never left your feature branch<br>
+6. Zero context switching
+            </div>
+
+            <h3>Worktree Commands</h3>
+            <div class="code">
+                <div class="code-header">Terminal <button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                <pre># Create a worktree — checks out "main" in a separate folder
+git worktree add ../project-hotfix main
+
+# Now you have TWO folders:
+#   /project          ← your feature branch (untouched)
+#   /project-hotfix   ← main branch (fix the bug here)
+
+# List all worktrees
+git worktree list
+
+# Remove a worktree when done
+git worktree remove ../project-hotfix</pre>
+            </div>
+
+            <h3>How Worktrees Actually Work</h3>
+            <div class="diagram">
+<span class="w">One .git database</span> (shared)<br>
+&boxv;<br>
+&boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;     &boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;<br>
+&boxv; <span class="b">/project</span>        &boxv;     &boxv; <span class="g">/project-hotfix</span>&boxv;<br>
+&boxv; branch: feature  &boxv;     &boxv; branch: main    &boxv;<br>
+&boxv; Your WIP code    &boxv;     &boxv; Clean main code &boxv;<br>
+&boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;     &boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;<br>
+<br>
+Both folders share the SAME Git history and commits.<br>
+Changes committed in either folder are visible to both.
+            </div>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>Worktrees are like having your production site and staging site open in separate browser tabs. Both are the same site, but showing different versions. You can work on staging without touching production — and when staging looks good, you merge it over. No tab-switching nightmares.</p>
+            </div>
+
+            <h3>When to Use Worktrees</h3>
+            <ul>
+                <li><strong>Hotfix while mid-feature</strong> — don't stash, don't lose context</li>
+                <li><strong>Comparing two branches visually</strong> — open both folders in your editor</li>
+                <li><strong>Running tests on main</strong> while still coding on your feature</li>
+                <li><strong>Code reviews</strong> — check out a PR in a worktree to test it without switching your own branch</li>
+            </ul>
+        </div>
+
+        <!-- Chapter 8: How Claude Code Leverages Git -->
+        <div class="chapter" id="claude-code">
+            <div class="chapter-number">Chapter 8</div>
+            <h2>How Claude Code Leverages Git</h2>
+            <span class="seo-tag">Think: "Your AI assistant has built-in version control superpowers"</span>
+
+            <p>Claude Code doesn't just "know about" Git — it <strong>actively uses Git</strong> as part of its workflow. Understanding how helps you work with it more effectively.</p>
+
+            <h3>What Claude Code Does with Git</h3>
+            <table class="compare">
+                <tr><th>Feature</th><th>How Claude Uses Git</th><th>Why It Matters</th></tr>
+                <tr><td>git status</td><td>Checks what files have changed before making edits</td><td>Avoids editing stale files or conflicting with your uncommitted work</td></tr>
+                <tr><td>git diff</td><td>Reviews changes before committing — drafts precise commit messages from the actual diff</td><td>Commit messages describe what actually changed, not what was intended</td></tr>
+                <tr><td>git log</td><td>Reads recent commit history to match your commit message style</td><td>Your commits look consistent whether you or Claude wrote them</td></tr>
+                <tr><td>/commit</td><td>Analyzes staged changes, writes a message, creates the commit</td><td>One command replaces: git add + git diff + writing message + git commit</td></tr>
+                <tr><td>git blame</td><td>Traces who wrote a specific line and when</td><td>Helps Claude understand code provenance before suggesting changes</td></tr>
+            </table>
+
+            <h3>Claude Code and Worktrees</h3>
+            <p>This is where it gets powerful. When you give Claude Code a complex or risky task, it can use <strong>git worktrees for isolation</strong>:</p>
+
+            <div class="diagram">
+<span class="w">Your main project</span>          <span class="w">Claude's worktree</span><br>
+&boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;     &boxdr;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxdl;<br>
+&boxv; /Project Alpha    &boxv;     &boxv; /tmp/worktree-xx &boxv;<br>
+&boxv; Your files stay   &boxv;     &boxv; Claude works     &boxv;<br>
+&boxv; exactly as they   &boxv;     &boxv; on a separate    &boxv;<br>
+&boxv; are. Untouched.   &boxv;     &boxv; copy. Safe.      &boxv;<br>
+&boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;     &boxur;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxh;&boxul;<br>
+<br>
+If the work succeeds &rarr; merge the worktree changes back<br>
+If it fails &rarr; delete the worktree, your project is unchanged
+            </div>
+
+            <h4>How Worktree Isolation Works in Claude Code</h4>
+            <ol>
+                <li><strong>Agent spawns with isolation: "worktree"</strong> — Claude creates a temporary git worktree in a separate directory</li>
+                <li><strong>All edits happen in the worktree</strong> — your actual project files are never touched during the experiment</li>
+                <li><strong>If the agent makes no changes</strong> — the worktree is automatically cleaned up, zero mess left behind</li>
+                <li><strong>If the agent makes changes</strong> — the worktree path and branch are returned, you choose whether to merge</li>
+            </ol>
+
+            <p>This is why Claude Code can confidently attempt risky refactors, multi-file changes, and experimental approaches — if anything goes wrong, your real code is untouched.</p>
+
+            <div class="analogy">
+                <div class="analogy-label">SEO Analogy</div>
+                <p>This is exactly like how you'd test a major site migration. You'd never run a URL restructure on the live site first — you'd clone it to a staging environment, run the migration there, verify everything works, then deploy. Claude Code's worktree isolation is that staging environment. If the migration breaks, production is unaffected.</p>
+            </div>
+
+            <h3>The /commit Slash Command</h3>
+            <p>When you type <strong>/commit</strong> in Claude Code, here's what happens behind the scenes:</p>
+            <div class="diagram">
+<span class="w">1.</span> <span class="b">git status</span> &mdash; what files changed?<br>
+<span class="w">2.</span> <span class="b">git diff</span> &mdash; what exactly is different?<br>
+<span class="w">3.</span> <span class="b">git log --oneline</span> &mdash; what's your commit message style?<br>
+<span class="w">4.</span> <span class="y">AI analyzes the diff</span> &mdash; drafts a descriptive commit message<br>
+<span class="w">5.</span> <span class="g">git add</span> + <span class="g">git commit</span> &mdash; stages and commits<br>
+<span class="w">6.</span> <span class="b">git status</span> &mdash; verifies the commit succeeded
+            </div>
+
+            <p>One slash command replaces a 6-step manual workflow. And because Claude reads your recent commit history first, the message style matches your existing pattern.</p>
+
+            <h3>Git Safety in Claude Code</h3>
+            <p>Claude Code follows strict Git safety rules:</p>
+            <ul>
+                <li><strong>Never force-pushes</strong> to main/master without explicit permission</li>
+                <li><strong>Never amends</strong> existing commits unless asked — always creates new commits</li>
+                <li><strong>Never skips hooks</strong> (no --no-verify) unless asked</li>
+                <li><strong>Prefers specific git add</strong> over git add -A (avoids accidentally staging .env files or secrets)</li>
+                <li><strong>Always asks before destructive operations</strong> like git reset --hard or branch deletion</li>
+            </ul>
+
+            <div class="warning">
+                <div class="warning-label">Key Insight</div>
+                <p>Claude Code treats Git as a safety net, not just a tool. Every commit is a checkpoint you can return to. This is why Claude commits frequently — small, focused commits mean you can undo any single change without losing other work. Think of it like saving your game before a boss fight.</p>
+            </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="chapter" id="reference">
+            <div class="chapter-number">Quick Reference</div>
+            <h2>Git Command Cheat Sheet</h2>
+
+            <table class="compare">
+                <tr><th>Command</th><th>What It Does</th><th>When to Use</th></tr>
+                <tr><td>git init</td><td>Create a new repository</td><td>Starting a new project</td></tr>
+                <tr><td>git clone URL</td><td>Download a repo from GitHub</td><td>Getting someone's project</td></tr>
+                <tr><td>git status</td><td>Show what's changed</td><td>Before every commit</td></tr>
+                <tr><td>git add FILE</td><td>Stage files for commit</td><td>Choosing what to save</td></tr>
+                <tr><td>git commit -m ""</td><td>Save a snapshot with a message</td><td>After completing a logical change</td></tr>
+                <tr><td>git push</td><td>Upload to GitHub</td><td>Sharing/backing up your work</td></tr>
+                <tr><td>git pull</td><td>Download latest from GitHub</td><td>Syncing with team changes</td></tr>
+                <tr><td>git log --oneline</td><td>View commit history</td><td>Checking what happened</td></tr>
+                <tr><td>git diff</td><td>See line-by-line changes</td><td>Reviewing before committing</td></tr>
+                <tr><td>git checkout -b NAME</td><td>Create and switch to new branch</td><td>Starting new feature/fix</td></tr>
+                <tr><td>git merge NAME</td><td>Combine branch into current</td><td>Deploying a feature</td></tr>
+                <tr><td>git stash</td><td>Temporarily shelve changes</td><td>Need to switch context fast</td></tr>
+                <tr><td>git worktree add PATH BRANCH</td><td>Check out branch in separate folder</td><td>Working on two branches at once</td></tr>
+                <tr><td>git revert HASH</td><td>Undo a commit safely</td><td>Rolling back a mistake</td></tr>
+                <tr><td>gh pr create</td><td>Open a Pull Request (GitHub CLI)</td><td>Submitting code for review</td></tr>
+            </table>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Built by Shoaib Tariq as part of <strong>Project Alpha</strong> — the AI Learning Lab.</p>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        function revealOnScroll() {
+            document.querySelectorAll('.chapter:not(.visible)').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('visible');
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Copy to clipboard
+        function copyCode(btn) {
+            const code = btn.closest('.code').querySelector('pre').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

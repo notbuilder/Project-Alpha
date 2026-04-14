@@ -41,6 +41,8 @@ Project Alpha/
     ├── roadmap.html       ← 12-week master roadmap (5 phases)
     ├── claude-code/       ← Claude Code mastery
     │   └── claude-code-guide.html  ← 2-day intensive course
+    ├── git/               ← Git & GitHub guide + worktrees
+    │   └── git-guide.html
     ├── context-engineering/
     ├── mcp/
     └── prompting/
