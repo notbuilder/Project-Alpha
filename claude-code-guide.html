@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code for SEO Pros — 2-Day Intensive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-1: #6366f1;
+            --accent-2: #ec4899;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --success: #22c55e;
+            --try-bg: rgba(99, 102, 241, 0.08);
+            --tip-bg: rgba(236, 72, 153, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Ambient blobs */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .blob-1 { width: 400px; height: 400px; background: var(--accent-1); top: -100px; left: -100px; }
+        .blob-2 { width: 350px; height: 350px; background: var(--accent-2); bottom: -80px; right: -80px; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: padding 0.3s;
+        }
+        .navbar.scrolled { padding: 0.6rem 2rem; }
+        .navbar .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links { display: flex; gap: 0.5rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+            background: rgba(99, 102, 241, 0.15);
+        }
+        .nav-progress {
+            font-size: 0.75rem;
+            color: var(--accent-1);
+            font-weight: 600;
+        }
+        .btn-reset {
+            background: none;
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .btn-reset:hover { border-color: var(--accent-2); color: var(--accent-2); }
+
+        /* Hero */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero .subtitle {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+        .progress-bar-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 3px;
+            margin-bottom: 0.5rem;
+        }
+        .progress-bar {
+            height: 8px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        .progress-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Tab buttons */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 0 2rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        .tab-btn {
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .tab-btn:hover { border-color: var(--accent-1); color: var(--text-main); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(236,72,153,0.2));
+            border-color: var(--accent-1);
+            color: var(--text-main);
+        }
+
+        /* Content wrapper */
+        .content { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; position: relative; z-index: 1; }
+        .day-content { display: none; }
+        .day-content.active { display: block; }
+        .day-header {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .day-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Section cards */
+        .section-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section-card.visible { opacity: 1; transform: translateY(0); }
+        .time-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-1);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+        }
+        .section-number {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .section-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .seo-analogy-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: var(--accent-2);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        .section-card p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        .section-card h4 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.7rem; }
+
+        /* Code blocks */
+        .code-block {
+            position: relative;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        .code-block pre {
+            padding: 1.2rem 1.5rem;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 0;
+        }
+        .code-block code { font-family: inherit; }
+        .copy-btn {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.15); color: var(--text-main); }
+        .copy-btn.copied { background: rgba(34,197,94,0.2); color: var(--success); border-color: var(--success); }
+
+        /* Try-it box */
+        .try-it {
+            background: var(--try-bg);
+            border: 1px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+        }
+        .try-it-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .try-it p { color: var(--text-main); font-size: 0.9rem; margin-bottom: 0; }
+
+        /* Pro tip */
+        .pro-tip {
+            border-left: 3px solid var(--accent-2);
+            background: var(--tip-bg);
+            padding: 1rem 1.2rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.2rem 0;
+        }
+        .pro-tip-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .pro-tip p { color: var(--text-muted); font-size: 0.88rem; font-style: italic; margin-bottom: 0; }
+
+        /* Progress checkbox */
+        .section-progress {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .section-progress input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-1);
+            cursor: pointer;
+        }
+        .section-progress label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        .section-progress label.checked { color: var(--success); text-decoration: line-through; }
+
+        /* Cheat sheet */
+        .cheat-sheet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .cheat-item {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+        .cheat-item .cmd {
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-1);
+            margin-bottom: 0.3rem;
+        }
+        .cheat-item .desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Bullet list styling */
+        .section-card ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .section-card li { margin-bottom: 0.4rem; }
+        .section-card strong { color: var(--text-main); }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        .footer a { color: var(--accent-1); text-decoration: none; }
+
+        /* Mobile hamburger */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .section-card { padding: 1.5rem; }
+            .time-badge { position: static; margin-bottom: 0.8rem; display: inline-block; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(15,23,42,0.95); padding: 1rem; border-bottom: 1px solid var(--glass-border); }
+            .nav-links.open { display: flex; }
+            .hamburger { display: block; }
+            .cheat-sheet-grid { grid-template-columns: 1fr; }
+            .tab-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <span class="logo">CC for SEO Pros</span>
+        <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <div class="nav-links">
+            <a href="#" class="tab-link active" data-tab="day1">Day 1</a>
+            <a href="#" class="tab-link" data-tab="day2">Day 2</a>
+            <a href="#" class="tab-link" data-tab="cheatsheet">Cheat Sheet</a>
+            <span class="nav-progress" id="navProgress">0/14</span>
+            <button class="btn-reset" onclick="resetProgress()">Reset</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Master <span class="gradient-text">Claude Code</span><br>in 2 Days</h1>
+        <p class="subtitle">A hands-on intensive for SEO professionals. Every concept explained through the lens you already know — search engines, crawling, indexing, and ranking.</p>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">0 of 14 sections complete</span>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tab-container">
+        <button class="tab-btn active" data-tab="day1">Day 1 — Foundation</button>
+        <button class="tab-btn" data-tab="day2">Day 2 — Mastery</button>
+        <button class="tab-btn" data-tab="cheatsheet">Cheat Sheet</button>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+        <!-- ==================== DAY 1 ==================== -->
+        <div class="day-content active" id="day1">
+            <h2 class="day-header">Day 1 — <span class="gradient-text">Foundation</span></h2>
+            <p class="day-subtitle">Get Claude Code installed, understand the core concepts, and complete your first real task. ~3.5 hours.</p>
+
+            <!-- Section 1 -->
+            <div class="section-card" data-section="1">
+                <span class="time-badge">~15 min</span>
+                <div class="section-number">Section 1</div>
+                <h3>What is Claude Code?</h3>
+                <span class="seo-analogy-tag">Think: "Ahrefs but for your codebase"</span>
+                <p>Claude Code is an AI-powered coding assistant that lives in your terminal (or IDE). Just like Ahrefs crawls websites to find SEO issues and opportunities, Claude Code reads your entire codebase to understand it — then helps you write, fix, and improve code through natural conversation.</p>
+                <p>But here's the key difference from ChatGPT: Claude Code <strong>has direct access to your files</strong>. It can read them, edit them, run terminal commands, and even make git commits. It's not just a chat — it's an agent that takes action.</p>
+
+                <h4>What makes it different?</h4>
+                <ul>
+                    <li><strong>Agentic</strong> — it doesn't just suggest code, it writes and edits files directly</li>
+                    <li><strong>Context-aware</strong> — it reads your project files like Googlebot crawls your site</li>
+                    <li><strong>Tool-using</strong> — it runs terminal commands, searches files, and manages git</li>
+                    <li><strong>Persistent</strong> — CLAUDE.md and memory files carry context between sessions (like your site's link equity persists across crawls)</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>You're already using Claude Code right now! Ask it: <strong>"What files are in this project?"</strong> — watch it explore your codebase like a crawler discovering pages.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Claude Code is available as a CLI, desktop app, web app (claude.ai/code), and IDE extensions for VS Code and JetBrains. Pick whatever feels most natural to start with — you can always switch later.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-1" data-section="1">
+                    <label for="check-1">I understand what Claude Code is and how it differs from ChatGPT</label>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="section-card" data-section="2">
+                <span class="time-badge">~20 min</span>
+                <div class="section-number">Section 2</div>
+                <h3>Installation & Setup</h3>
+                <span class="seo-analogy-tag">Think: "Installing your SEO toolkit"</span>
+                <p>Before you can audit a site, you need your tools installed. Same here — let's get Claude Code running on your machine.</p>
+
+                <h4>Option A: CLI (Terminal)</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Install via npm (requires Node.js 18+)
+npm install -g @anthropic-ai/claude-code
+
+# Launch Claude Code in your project directory
+cd your-project-folder
+claude</code></pre>
+                </div>
+
+                <h4>Option B: Desktop App</h4>
+                <p>Download from <strong>claude.ai/code</strong> — available for Mac and Windows. No terminal needed.</p>
+
+                <h4>Option C: VS Code Extension</h4>
+                <p>Search "Claude Code" in the VS Code extensions marketplace. Install, and it appears in your sidebar.</p>
+
+                <h4>Authentication</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># First launch will prompt you to authenticate
+# You'll need a Claude account (free or paid)
+claude
+
+# Or set your API key directly
+export ANTHROPIC_API_KEY=your-key-here</code></pre>
+                </div>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Open Claude Code in this Project Alpha folder. Type <strong>"hello"</strong> and see it respond. That's it — you're set up!</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>If you're using the VS Code extension (which you likely are right now), you're already set up. The extension IS Claude Code — same engine, just embedded in your editor.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-2" data-section="2">
+                    <label for="check-2">I have Claude Code installed and running</label>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="section-card" data-section="3">
+                <span class="time-badge">~30 min</span>
+                <div class="section-number">Section 3</div>
+                <h3>Core Concepts: Prompts, Context & CLAUDE.md</h3>
+                <span class="seo-analogy-tag">Think: "CLAUDE.md = robots.txt; Context window = crawl budget"</span>
+                <p>In SEO, three things determine how well Google understands your site: <strong>robots.txt</strong> (what to crawl), <strong>crawl budget</strong> (how much to crawl), and <strong>site architecture</strong> (how content is organized). Claude Code has direct equivalents.</p>
+
+                <h4>CLAUDE.md = Your robots.txt + meta directives</h4>
+                <p>Just like robots.txt tells Googlebot how to behave on your site, <strong>CLAUDE.md</strong> tells Claude Code how to behave in your project. It's a markdown file at your project root that contains:</p>
+                <ul>
+                    <li>Project description and purpose</li>
+                    <li>Coding conventions and rules</li>
+                    <li>File structure explanations</li>
+                    <li>Behavioral directives (how Claude should respond)</li>
+                </ul>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># CLAUDE.md — Your project's "robots.txt" for AI
+
+## Project Identity
+This is a learning lab for AI implementation.
+
+## Rules
+- Use SEO analogies when explaining concepts
+- Always explain the "why" behind changes
+- Keep code simple and well-commented</code></pre>
+                </div>
+
+                <h4>Context Window = Crawl Budget</h4>
+                <p>Google allocates a "crawl budget" to your site — a limit on how many pages it will crawl per session. Claude Code has a <strong>context window</strong> — a limit on how much information it can hold at once. You want to use it efficiently:</p>
+                <ul>
+                    <li><strong>Don't dump everything</strong> — just like you wouldn't want Googlebot wasting crawl budget on thin pages</li>
+                    <li><strong>Be specific</strong> — point Claude to the right files, like using a sitemap to guide crawlers</li>
+                    <li><strong>CLAUDE.md is always loaded</strong> — it's like your homepage, always crawled first</li>
+                </ul>
+
+                <h4>Prompts = Search Queries</h4>
+                <p>The way you talk to Claude Code is exactly like crafting search queries. Vague queries get vague results:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Bad (like searching "shoes") — too vague
+"fix this code"
+
+# Good (like searching "best running shoes for flat feet under $100")
+"Fix the mobile menu toggle in experiments/01-portfolio/script.js —
+ the nav-links don't close when I click a link on mobile"</code></pre>
+                </div>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"Read the CLAUDE.md file and tell me what you know about this project."</strong> Watch how it uses CLAUDE.md as its first source of truth — just like Googlebot reads robots.txt first.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Your CLAUDE.md is the highest-leverage file in your entire project. A well-written CLAUDE.md is like having perfect technical SEO — everything else works better because the foundation is right.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-3" data-section="3">
+                    <label for="check-3">I understand CLAUDE.md, context windows, and prompt specificity</label>
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="section-card" data-section="4">
+                <span class="time-badge">~40 min</span>
+                <div class="section-number">Section 4</div>
+                <h3>Basic Commands & Interactions</h3>
+                <span class="seo-analogy-tag">Think: "Crawling pages = reading files; Fixing errors = editing code"</span>
+                <p>In SEO, your daily workflow is: crawl the site, find issues, fix them. Claude Code works the same way — it reads files, identifies problems, and makes changes. Here's what it can do:</p>
+
+                <h4>Reading Files (Crawling)</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Ask Claude to read a specific file
+"Read experiments/01-portfolio/index.html"
+
+# Ask it to explore the project structure
+"Show me the folder structure of this project"
+
+# Ask it to find something specific
+"Find all files that use localStorage"</code></pre>
+                </div>
+
+                <h4>Editing Files (Fixing SEO Issues)</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Direct instruction (like fixing a broken canonical tag)
+"Add proper meta descriptions to all HTML files in experiments/"
+
+# Explaining what you want (like briefing a dev on SEO fixes)
+"The hero section in the dental site loads too slowly.
+ Optimize the CSS and defer non-critical styles."</code></pre>
+                </div>
+
+                <h4>Running Commands (Like running a site audit)</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Claude can run terminal commands for you
+"Start a local server so I can preview the portfolio site"
+
+# It can also run git commands
+"Show me what files have changed since the last commit"</code></pre>
+                </div>
+
+                <h4>Multi-step Tasks (Like a full SEO audit)</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Give Claude a complex task and watch it break it down
+"Audit experiments/01-portfolio/index.html for accessibility
+ and performance issues. Fix anything you find."
+
+# Claude will: read the file → analyze → make edits → report</code></pre>
+                </div>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"Read experiments/02-dental-clinic/index.html and list every SEO issue you find — missing meta tags, heading hierarchy problems, missing alt text, etc."</strong></p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Claude Code remembers your conversation context within a session. You can say "now fix issue #3 from that list" and it knows exactly what you mean — like how Google understands search refinements.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-4" data-section="4">
+                    <label for="check-4">I can read files, edit code, and run commands through Claude Code</label>
+                </div>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="section-card" data-section="5">
+                <span class="time-badge">~20 min</span>
+                <div class="section-number">Section 5</div>
+                <h3>The Permission Model</h3>
+                <span class="seo-analogy-tag">Think: "noindex/nofollow — controlling what the AI can touch"</span>
+                <p>In SEO, you use <strong>noindex</strong> and <strong>nofollow</strong> to control what Google can access and follow. Claude Code has a similar permission system — you control what it's allowed to do.</p>
+
+                <h4>How Permissions Work</h4>
+                <ul>
+                    <li><strong>Read files</strong> — always allowed (like Googlebot reading public pages)</li>
+                    <li><strong>Edit files</strong> — asks for approval each time (like staging changes before publish)</li>
+                    <li><strong>Run commands</strong> — asks for approval (some commands are safe, others are destructive)</li>
+                    <li><strong>Git operations</strong> — asks before committing, pushing, etc.</li>
+                </ul>
+
+                <h4>Pre-approving Commands</h4>
+                <p>You can pre-approve safe commands in <strong>.claude/settings.json</strong> — like adding pages to your sitemap so they're always crawled:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// .claude/settings.json
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m http.server*)",
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git diff*)"
+    ],
+    "deny": []
+  }
+}</code></pre>
+                </div>
+
+                <h4>Permission Modes</h4>
+                <p>When Claude asks for permission, you can:</p>
+                <ul>
+                    <li><strong>Allow once</strong> — approve this specific action</li>
+                    <li><strong>Allow always</strong> — auto-approve this type of action going forward</li>
+                    <li><strong>Deny</strong> — block the action (like adding a disallow rule)</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code to edit a file — notice how it asks for your permission before making changes. Then try: <strong>"Show me the current .claude/settings.json"</strong> to see your permission configuration.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Start restrictive (approve everything manually) and gradually open up permissions as you gain confidence — just like you'd start with a restrictive robots.txt and expand access as you verify things work.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-5" data-section="5">
+                    <label for="check-5">I understand how permissions work and how to configure them</label>
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="section-card" data-section="6">
+                <span class="time-badge">~45 min</span>
+                <div class="section-number">Section 6</div>
+                <h3>Your First Task: SEO Audit with Claude Code</h3>
+                <span class="seo-analogy-tag">Think: "Running your first Screaming Frog crawl — but on code"</span>
+                <p>Time to put it all together. You're going to use Claude Code to do what you do best — an SEO audit — but this time, you're auditing HTML code instead of a live site.</p>
+
+                <h4>The Mission</h4>
+                <p>Audit the portfolio site at <strong>experiments/01-portfolio/index.html</strong> for SEO issues and have Claude Code fix them.</p>
+
+                <h4>Step-by-Step</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Step 1: Have Claude audit the file
+"Read experiments/01-portfolio/index.html and give me a
+ complete SEO audit: meta tags, heading structure, alt text,
+ semantic HTML, structured data, and mobile optimization."
+
+# Step 2: Fix the issues
+"Fix all the SEO issues you found. Add proper meta tags,
+ fix the heading hierarchy, and add alt text to any images."
+
+# Step 3: Verify the changes
+"Show me a diff of what you changed"
+
+# Step 4: Commit the improvements
+"Commit these SEO improvements with a descriptive message"</code></pre>
+                </div>
+
+                <h4>What to Look For</h4>
+                <p>Watch how Claude Code:</p>
+                <ul>
+                    <li>Reads and understands the HTML structure (like crawling)</li>
+                    <li>Identifies issues systematically (like a site audit report)</li>
+                    <li>Makes targeted edits without breaking anything (like careful on-page fixes)</li>
+                    <li>Can explain its reasoning when asked (like justifying SEO recommendations)</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Run the full audit workflow above. Then do the same for <strong>experiments/02-dental-clinic/index.html</strong>. Compare the issues found — every site has different problems, just like every client site.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>After the audit, ask Claude: <strong>"What would you add to CLAUDE.md to prevent these SEO issues in future files?"</strong> This teaches you how to use CLAUDE.md as a preventive tool — like setting up automated SEO rules.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-6" data-section="6">
+                    <label for="check-6">I've completed my first SEO audit using Claude Code</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== DAY 2 ==================== -->
+        <div class="day-content" id="day2">
+            <h2 class="day-header">Day 2 — <span class="gradient-text">Mastery</span></h2>
+            <p class="day-subtitle">Level up with advanced techniques, workflows, and the tools that make Claude Code truly powerful. ~4 hours.</p>
+
+            <!-- Section 7 -->
+            <div class="section-card" data-section="7">
+                <span class="time-badge">~30 min</span>
+                <div class="section-number">Section 7</div>
+                <h3>Advanced Prompting</h3>
+                <span class="seo-analogy-tag">Think: "Long-tail keywords = specific prompts get better results"</span>
+                <p>In SEO, "running shoes" gets you millions of competing results. "Best trail running shoes for flat feet under $150" gets you exactly what you need. Prompting Claude Code works the same way.</p>
+
+                <h4>The Specificity Ladder</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Level 1: Generic (like "shoes") — weak results
+"Make this better"
+
+# Level 2: Directional (like "running shoes") — okay results
+"Improve the CSS performance"
+
+# Level 3: Specific (like "trail running shoes size 10") — good results
+"Reduce the CSS file size in experiments/01-portfolio/style.css
+ by combining duplicate rules and removing unused selectors"
+
+# Level 4: Expert (like a full keyword brief) — best results
+"Audit experiments/01-portfolio/style.css for performance:
+ 1. Find and merge duplicate CSS rules
+ 2. Remove any selectors not used in index.html
+ 3. Convert px values to rem where appropriate
+ 4. Add will-change hints for animated properties
+ Report what you changed and why."</code></pre>
+                </div>
+
+                <h4>Prompt Patterns That Work</h4>
+                <ul>
+                    <li><strong>Role + Task + Constraints</strong> — "As a senior developer, review this code for security issues. Focus only on user input handling."</li>
+                    <li><strong>Step-by-step</strong> — "First read the file, then identify issues, then fix them one by one."</li>
+                    <li><strong>Show don't tell</strong> — Paste an example of what you want, then say "do this for all similar files."</li>
+                    <li><strong>Negative constraints</strong> — "Don't add new dependencies. Don't change the visual appearance."</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Take a task you'd normally do manually and write it as a Level 4 prompt. For example: <strong>"Audit all HTML files in experiments/ for proper heading hierarchy (only one H1, logical H2-H6 nesting). List violations in a table, then fix them."</strong></p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>The best prompts include both what you want AND what you don't want. Just like a good SEO brief specifies target keywords AND keywords to avoid cannibalizing.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-7" data-section="7">
+                    <label for="check-7">I can craft specific, effective prompts for Claude Code</label>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="section-card" data-section="8">
+                <span class="time-badge">~25 min</span>
+                <div class="section-number">Section 8</div>
+                <h3>Plan Mode</h3>
+                <span class="seo-analogy-tag">Think: "SEO audit before making changes — analyze first, act second"</span>
+                <p>You'd never start implementing SEO changes without first doing an audit and creating a strategy. <strong>Plan Mode</strong> is exactly that — it forces Claude Code to analyze and plan before touching any files.</p>
+
+                <h4>How Plan Mode Works</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Activate plan mode (in Claude Code CLI)
+/plan
+
+# Or type "plan" as part of your prompt
+"Plan how you would add a contact form to the portfolio site.
+ Don't make any changes yet — just give me the strategy."
+
+# Claude will:
+# 1. Explore relevant files (the audit)
+# 2. Write a plan file (the strategy doc)
+# 3. Present it for your approval
+# 4. Only execute after you approve</code></pre>
+                </div>
+
+                <h4>When to Use Plan Mode</h4>
+                <ul>
+                    <li><strong>Complex changes</strong> — anything touching 3+ files (like a site-wide SEO migration)</li>
+                    <li><strong>Learning new concepts</strong> — ask Claude to plan, then study the plan to learn</li>
+                    <li><strong>Risky operations</strong> — when you want to review before any changes happen</li>
+                    <li><strong>Team alignment</strong> — share the plan with others before executing</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"Plan how you would restructure the dental clinic site to improve its SEO architecture — better URL structure, internal linking, and content hierarchy. Don't change anything yet."</strong> Review the plan it creates.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Plan mode is also a great learning tool. Ask Claude to plan something complex, then study the plan to understand the approach. It's like reading an SEO audit report to learn what to look for.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-8" data-section="8">
+                    <label for="check-8">I can use Plan Mode to analyze before acting</label>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <div class="section-card" data-section="9">
+                <span class="time-badge">~30 min</span>
+                <div class="section-number">Section 9</div>
+                <h3>Working with Git</h3>
+                <span class="seo-analogy-tag">Think: "Commits = indexing; Branches = staging environments"</span>
+                <p>When Google indexes your page, that version is "live" and discoverable. Git commits work the same way — they create a permanent, discoverable snapshot of your code. And just like you might test SEO changes on a staging site before pushing to production, git <strong>branches</strong> let you experiment safely.</p>
+
+                <h4>Essential Git Operations via Claude Code</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Check status (like checking your indexation report)
+"Show me git status — what's changed since last commit?"
+
+# Commit changes (like submitting pages for indexing)
+"Commit these changes with message: Add meta descriptions to all pages"
+
+# Or use the slash command
+/commit
+
+# View history (like checking your crawl history)
+"Show me the last 5 commits"
+
+# Create a branch (like setting up a staging environment)
+"Create a new branch called 'add-contact-form' and switch to it"
+
+# Compare branches (like comparing staging vs production)
+"Show me what's different between this branch and main"</code></pre>
+                </div>
+
+                <h4>The Git Workflow (SEO Analogy)</h4>
+                <ul>
+                    <li><strong>Working directory</strong> = Your draft content (not published yet)</li>
+                    <li><strong>Staging (git add)</strong> = Content review queue (approved but not live)</li>
+                    <li><strong>Commit</strong> = Publishing / indexing (permanent and discoverable)</li>
+                    <li><strong>Branch</strong> = Staging site (experiment without affecting production)</li>
+                    <li><strong>Merge</strong> = Deploying staging to production</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"Show me the git log for this project."</strong> You should see the commits from when we restructured Project Alpha. Then try: <strong>"Create a new branch called 'experiment', make a small change, commit it, and switch back to main."</strong></p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Use the /commit slash command for quick commits. Claude Code will analyze your changes, draft a good commit message, and handle staging — like having a content editor who writes your meta descriptions for you.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-9" data-section="9">
+                    <label for="check-9">I can use git through Claude Code for version control</label>
+                </div>
+            </div>
+
+            <!-- Section 10 -->
+            <div class="section-card" data-section="10">
+                <span class="time-badge">~30 min</span>
+                <div class="section-number">Section 10</div>
+                <h3>MCP Servers</h3>
+                <span class="seo-analogy-tag">Think: "API integrations — like connecting Ahrefs to Search Console"</span>
+                <p>In SEO, tools become powerful when they connect: Ahrefs pulling Search Console data, Screaming Frog connecting to Google Analytics, SEMrush integrating with your CMS. <strong>MCP (Model Context Protocol)</strong> does the same for Claude Code — it lets you plug in external tools and data sources.</p>
+
+                <h4>What MCP Does</h4>
+                <p>MCP is a protocol that lets Claude Code talk to external services through "servers" — think of each MCP server as a plugin or API integration:</p>
+                <ul>
+                    <li><strong>File system server</strong> — gives Claude deeper file access</li>
+                    <li><strong>GitHub server</strong> — Claude can create PRs, manage issues, review code</li>
+                    <li><strong>Database servers</strong> — Claude can query your databases directly</li>
+                    <li><strong>Custom servers</strong> — you can build your own (we'll cover this in the MCP learning module)</li>
+                </ul>
+
+                <h4>How to Connect an MCP Server</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># MCP servers are configured in your Claude Code settings
+# Example: adding a filesystem MCP server
+
+// In .claude/settings.json or via the /mcp command
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/dir"]
+    }
+  }
+}</code></pre>
+                </div>
+
+                <h4>The Big Picture</h4>
+                <p>MCP is what turns Claude Code from a coding assistant into an <strong>AI implementation platform</strong>. Just like SEO tools evolved from standalone crawlers to integrated suites, Claude Code + MCP becomes your integrated AI development environment.</p>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"What MCP servers are currently connected? List any available tools."</strong> Then explore: <strong>"Explain what MCP servers would be most useful for a web developer."</strong></p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Don't rush to add MCP servers. Start with Claude Code's built-in tools — they cover 90% of use cases. Add MCP servers when you hit a specific need, just like you'd add a new SEO tool only when your current stack has a gap.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-10" data-section="10">
+                    <label for="check-10">I understand what MCP is and when to use it</label>
+                </div>
+            </div>
+
+            <!-- Section 11 -->
+            <div class="section-card" data-section="11">
+                <span class="time-badge">~30 min</span>
+                <div class="section-number">Section 11</div>
+                <h3>Multi-File Projects</h3>
+                <span class="seo-analogy-tag">Think: "Managing SEO across a multi-page site"</span>
+                <p>Optimizing a single page is easy. Managing SEO across a 500-page site? That requires strategy. Same with Claude Code — working with multiple files requires understanding how to guide the AI across your project.</p>
+
+                <h4>Techniques for Multi-File Work</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Point Claude to specific files (like prioritizing crawl)
+"Look at experiments/02-dental-clinic/style.css and
+ experiments/02-dental-clinic/script.js together.
+ Find any style conflicts."
+
+# Batch operations (like bulk meta description updates)
+"Add a consistent footer to ALL HTML files in
+ experiments/02-dental-clinic/"
+
+# Cross-file refactoring (like site-wide internal linking)
+"The dental clinic pages each define their own nav HTML.
+ Extract the nav into a reusable pattern and make all
+ pages consistent."
+
+# Using glob patterns (like URL patterns in robots.txt)
+"Find all .html files that are missing a viewport meta tag"</code></pre>
+                </div>
+
+                <h4>CLAUDE.md for Multi-File Context</h4>
+                <p>For large projects, your CLAUDE.md becomes critical — it's the <strong>sitemap</strong> that helps Claude efficiently navigate:</p>
+                <ul>
+                    <li>Document your folder structure</li>
+                    <li>Explain relationships between files</li>
+                    <li>Note shared resources and dependencies</li>
+                    <li>Flag files that shouldn't be modified</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Ask Claude Code: <strong>"Compare the CSS architecture across all three experiments. Which patterns are shared? Which are unique? Create a summary table."</strong> This exercises Claude's ability to reason across multiple files.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>When working across many files, break the task into phases: first analyze, then plan, then execute in groups. Just like you'd segment a large site migration into phases.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-11" data-section="11">
+                    <label for="check-11">I can guide Claude Code effectively across multiple files</label>
+                </div>
+            </div>
+
+            <!-- Section 12 -->
+            <div class="section-card" data-section="12">
+                <span class="time-badge">~25 min</span>
+                <div class="section-number">Section 12</div>
+                <h3>Slash Commands & Workflows</h3>
+                <span class="seo-analogy-tag">Think: "Saved audit configs — one-click recurring workflows"</span>
+                <p>In Screaming Frog, you save crawl configurations so you don't have to set up the same filters every time. Claude Code has <strong>slash commands</strong> — quick shortcuts for common workflows.</p>
+
+                <h4>Built-in Slash Commands</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>/help          — Get help with Claude Code features
+/commit        — Smart commit: analyzes changes, drafts message, commits
+/plan          — Enter plan mode (analyze before acting)
+/review-pr     — Review a pull request
+/clear         — Clear the conversation (free up context window)
+/fast          — Toggle fast output mode (same model, faster)</code></pre>
+                </div>
+
+                <h4>Custom Workflows with Skills</h4>
+                <p>Beyond built-in commands, Claude Code supports <strong>skills</strong> — think of them as custom audit templates:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Skills extend Claude Code's capabilities
+# They're like Screaming Frog custom extraction rules
+
+# Some skills you can use:
+/simplify      — Review changed code for quality and efficiency
+/loop          — Run a task on a recurring interval</code></pre>
+                </div>
+
+                <h4>Hooks — Automated Workflows</h4>
+                <p>Hooks let you run shell commands automatically in response to Claude Code events — like setting up automated Lighthouse audits that run after every deployment:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>// In settings.json — run a linter after every file edit
+{
+  "hooks": {
+    "afterEdit": {
+      "command": "echo 'File edited: $FILE_PATH'"
+    }
+  }
+}</code></pre>
+                </div>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Try these commands: <strong>/help</strong> to see available commands, then make a small change to any file and use <strong>/commit</strong> to see the smart commit flow in action.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>Use /clear liberally. When you switch tasks, clear the context — it's like starting a fresh crawl session instead of carrying stale data from the last audit.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-12" data-section="12">
+                    <label for="check-12">I know the key slash commands and how workflows work</label>
+                </div>
+            </div>
+
+            <!-- Section 13 -->
+            <div class="section-card" data-section="13">
+                <span class="time-badge">~20 min</span>
+                <div class="section-number">Section 13</div>
+                <h3>Tips & Tricks for Daily Use</h3>
+                <span class="seo-analogy-tag">Think: "Power-user SEO habits that save hours"</span>
+                <p>Every SEO pro has workflows that save them hours — keyboard shortcuts in Screaming Frog, saved segments in Analytics, template reports. Here are the Claude Code equivalents.</p>
+
+                <h4>Efficiency Habits</h4>
+                <ul>
+                    <li><strong>Start every session by reading CLAUDE.md</strong> — ask Claude "What do you know about this project?" to verify its understanding</li>
+                    <li><strong>Use /clear between tasks</strong> — don't let stale context pollute new work</li>
+                    <li><strong>Be specific about scope</strong> — "Fix the nav in index.html" beats "fix the nav"</li>
+                    <li><strong>Review before approving</strong> — always read the diff before accepting edits</li>
+                    <li><strong>Commit often</strong> — small commits are like incremental indexing, easy to track and roll back</li>
+                </ul>
+
+                <h4>Learning Habits</h4>
+                <ul>
+                    <li><strong>Ask "why"</strong> — after Claude makes a change, ask "Why did you choose this approach?" to deepen understanding</li>
+                    <li><strong>Ask for alternatives</strong> — "What's another way to solve this?" teaches you patterns</li>
+                    <li><strong>Use Plan Mode for learning</strong> — plan complex tasks, study the plan, then decide if you want to execute</li>
+                    <li><strong>Keep a learning log</strong> — note down new concepts in the learning/ folder</li>
+                </ul>
+
+                <h4>Debugging Habits</h4>
+                <ul>
+                    <li><strong>When Claude gets stuck</strong> — rephrase your request, add more context, or point to the specific file</li>
+                    <li><strong>When edits break things</strong> — use git to roll back: "Undo the last commit"</li>
+                    <li><strong>When context feels stale</strong> — /clear and start fresh with a focused prompt</li>
+                </ul>
+
+                <div class="try-it">
+                    <div class="try-it-label">Try It</div>
+                    <p>Practice the learning habit: Ask Claude to make any change, then ask <strong>"Why did you do it that way? What alternatives did you consider?"</strong> — this is how you learn the fastest.</p>
+                </div>
+
+                <div class="pro-tip">
+                    <div class="pro-tip-label">Pro Tip</div>
+                    <p>The memory system (CLAUDE.md + .claude/memory/) is your most powerful tool. Invest time in writing good CLAUDE.md files — the ROI compounds with every session, just like domain authority compounds over time.</p>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-13" data-section="13">
+                    <label for="check-13">I've adopted at least 3 daily habits from this section</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CHEAT SHEET ==================== -->
+        <div class="day-content" id="cheatsheet">
+            <h2 class="day-header"><span class="gradient-text">Cheat Sheet</span></h2>
+            <p class="day-subtitle">Quick reference — bookmark this tab and come back whenever you need a refresher.</p>
+
+            <div class="section-card visible" data-section="14">
+                <h3>Claude Code Quick Reference</h3>
+                <span class="seo-analogy-tag">Your SEO-to-AI translation guide</span>
+
+                <h4>Slash Commands</h4>
+                <div class="cheat-sheet-grid">
+                    <div class="cheat-item">
+                        <div class="cmd">/help</div>
+                        <div class="desc">Get help with Claude Code features and commands</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">/commit</div>
+                        <div class="desc">Smart commit — analyzes changes and writes commit message</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">/plan</div>
+                        <div class="desc">Enter Plan Mode — analyze and plan before making changes</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">/clear</div>
+                        <div class="desc">Clear conversation context (start fresh)</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">/review-pr [#]</div>
+                        <div class="desc">Review a GitHub pull request</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">/fast</div>
+                        <div class="desc">Toggle fast output mode (same model, faster)</div>
+                    </div>
+                </div>
+
+                <h4>SEO ↔ AI Concept Map</h4>
+                <div class="cheat-sheet-grid">
+                    <div class="cheat-item">
+                        <div class="cmd">CLAUDE.md</div>
+                        <div class="desc">= robots.txt + meta directives. Tells the AI how to behave.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Context Window</div>
+                        <div class="desc">= Crawl budget. Finite — use it on what matters.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Prompts</div>
+                        <div class="desc">= Search queries. Specificity = better results.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Plan Mode</div>
+                        <div class="desc">= SEO audit. Analyze before making changes.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Git Commits</div>
+                        <div class="desc">= Indexing. Makes changes permanent and discoverable.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Git Branches</div>
+                        <div class="desc">= Staging environments. Experiment safely.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">MCP Servers</div>
+                        <div class="desc">= API integrations. Connect external tools and data.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Memory System</div>
+                        <div class="desc">= Domain authority. Compounds with every session.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Permissions</div>
+                        <div class="desc">= noindex/nofollow. Control what the AI can touch.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">Hooks</div>
+                        <div class="desc">= Automated audits. Run tasks on events.</div>
+                    </div>
+                </div>
+
+                <h4>Power Prompts — Copy & Use</h4>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Full SEO audit of any HTML file
+"Audit [file] for: meta tags, heading hierarchy, alt text,
+semantic HTML, structured data, mobile responsiveness, and
+Core Web Vitals implications. List issues and fix them."
+
+# Code quality review
+"Review [file] for: security issues, performance bottlenecks,
+accessibility problems, and code smells. Prioritize by impact."
+
+# Learn from code
+"Explain how [file] works, step by step. I'm an SEO pro
+learning to code — use analogies from search/crawling."
+
+# Multi-file consistency check
+"Compare all HTML files in [folder] and ensure consistent:
+navigation, footer, meta tags, and heading structure."
+
+# Context-aware refactoring
+"Read the CLAUDE.md first, then refactor [file] following
+the project's coding conventions."</code></pre>
+                </div>
+
+                <h4>Key Files to Know</h4>
+                <div class="cheat-sheet-grid">
+                    <div class="cheat-item">
+                        <div class="cmd">CLAUDE.md</div>
+                        <div class="desc">Project root. Your AI's instruction manual. Always loaded first.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">.claude/settings.json</div>
+                        <div class="desc">Project config. Permissions, hooks, MCP servers.</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">.gitignore</div>
+                        <div class="desc">Files git should ignore (like noindex for version control).</div>
+                    </div>
+                    <div class="cheat-item">
+                        <div class="cmd">~/.claude/settings.json</div>
+                        <div class="desc">Global config. Applies to ALL your projects.</div>
+                    </div>
+                </div>
+
+                <div class="section-progress">
+                    <input type="checkbox" id="check-14" data-section="14">
+                    <label for="check-14">I've bookmarked this cheat sheet for daily reference</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>Built by Shoaib Tariq as part of <strong>Project Alpha</strong> — the AI Learning Lab.</p>
+        <p>Powered by <a href="https://claude.ai/code" target="_blank">Claude Code</a></p>
+    </div>
+
+    <script>
+        // === Progress Management ===
+        const TOTAL_SECTIONS = 14;
+        const STORAGE_KEY = 'ccguide_progress';
+
+        function getProgress() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return data ? JSON.parse(data) : new Array(TOTAL_SECTIONS).fill(false);
+            } catch { return new Array(TOTAL_SECTIONS).fill(false); }
+        }
+
+        function saveProgress(progress) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+            updateProgressUI(progress);
+        }
+
+        function updateProgressUI(progress) {
+            const completed = progress.filter(Boolean).length;
+            const pct = Math.round((completed / TOTAL_SECTIONS) * 100);
+            document.getElementById('progressBar').style.width = pct + '%';
+            document.getElementById('progressLabel').textContent = completed + ' of ' + TOTAL_SECTIONS + ' sections complete';
+            document.getElementById('navProgress').textContent = completed + '/' + TOTAL_SECTIONS;
+        }
+
+        function resetProgress() {
+            if (confirm('Reset all progress? This cannot be undone.')) {
+                const empty = new Array(TOTAL_SECTIONS).fill(false);
+                saveProgress(empty);
+                document.querySelectorAll('.section-progress input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                    cb.nextElementSibling.classList.remove('checked');
+                });
+            }
+        }
+
+        // Initialize checkboxes
+        (function initProgress() {
+            const progress = getProgress();
+            updateProgressUI(progress);
+
+            document.querySelectorAll('.section-progress input[type="checkbox"]').forEach(cb => {
+                const idx = parseInt(cb.dataset.section) - 1;
+                cb.checked = progress[idx];
+                if (progress[idx]) cb.nextElementSibling.classList.add('checked');
+
+                cb.addEventListener('change', function() {
+                    const p = getProgress();
+                    p[idx] = this.checked;
+                    saveProgress(p);
+                    this.nextElementSibling.classList.toggle('checked', this.checked);
+                });
+            });
+        })();
+
+        // === Tab Switching ===
+        function switchTab(tabId) {
+            document.querySelectorAll('.day-content').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('[data-tab="' + tabId + '"]').forEach(el => el.classList.add('active'));
+
+            // Re-trigger reveal for newly visible cards
+            setTimeout(() => {
+                document.querySelectorAll('#' + tabId + ' .section-card').forEach(card => {
+                    if (isInViewport(card)) card.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        document.querySelectorAll('.tab-btn, .tab-link').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                switchTab(this.dataset.tab);
+            });
+        });
+
+        // === Scroll Reveal ===
+        function isInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return rect.top < window.innerHeight - 80;
+        }
+
+        function revealOnScroll() {
+            document.querySelectorAll('.section-card:not(.visible)').forEach(card => {
+                if (isInViewport(card)) card.classList.add('visible');
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // === Navbar Scroll ===
+        window.addEventListener('scroll', function() {
+            document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // === Copy to Clipboard ===
+        function copyCode(btn) {
+            const code = btn.parentElement.querySelector('pre').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>
