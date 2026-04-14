@@ -295,6 +295,55 @@
         }
         .try-it p { color: var(--text-main); font-size: 0.9rem; margin-bottom: 0; }
 
+        /* Activity box */
+        .activity {
+            background: rgba(34, 197, 94, 0.06);
+            border: 2px solid rgba(34, 197, 94, 0.25);
+            border-radius: 14px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.5rem 0;
+        }
+        .activity-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--success);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .activity-label::before { content: '\1F3AF'; }
+        .activity h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.6rem;
+        }
+        .activity p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.6rem; }
+        .activity p:last-child { margin-bottom: 0; }
+        .activity ol, .activity ul {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding-left: 1.3rem;
+            margin-bottom: 0.6rem;
+        }
+        .activity li { margin-bottom: 0.4rem; }
+        .activity strong { color: var(--text-main); }
+        .activity .activity-code {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-family: 'Consolas', monospace;
+            font-size: 0.82rem;
+            color: #e2e8f0;
+            margin: 0.5rem 0;
+            overflow-x: auto;
+            display: block;
+        }
+
         /* Pro tip */
         .pro-tip {
             border-left: 3px solid var(--accent-2);
@@ -467,6 +516,18 @@
                     <p>You're already using Claude Code right now! Ask it: <strong>"What files are in this project?"</strong> — watch it explore your codebase like a crawler discovering pages.</p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Explore Your Own Project Like a Crawler</h5>
+                    <p>Use Claude Code to crawl Project Alpha and build a mental map — just like you'd use Screaming Frog on a new client site.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"List every file in this project and describe what each one does in one sentence."</strong></li>
+                        <li>Then ask: <strong>"Which files in experiments/ are the largest? What's in them?"</strong></li>
+                        <li>Then ask: <strong>"Compare how the three experiment sites handle navigation — show me the nav code from each."</strong></li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Claude Code reads files on demand (like crawling), compares across files (like a cross-page audit), and summarizes findings (like an audit report). Notice how it goes and fetches the actual code — it's not guessing.</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>Claude Code is available as a CLI, desktop app, web app (claude.ai/code), and IDE extensions for VS Code and JetBrains. Pick whatever feels most natural to start with — you can always switch later.</p>
@@ -517,6 +578,19 @@ export ANTHROPIC_API_KEY=your-key-here</code></pre>
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Open Claude Code in this Project Alpha folder. Type <strong>"hello"</strong> and see it respond. That's it — you're set up!</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Set Up Your Environment & Verify Everything Works</h5>
+                    <p>Let's make sure your setup is solid — like verifying Search Console access before starting an audit.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"What version of Node.js do I have? What about npm and git?"</strong> — verify your toolchain.</li>
+                        <li>Ask Claude: <strong>"Start a local server in the experiments/01-portfolio folder so I can preview it."</strong> — test that Claude can run commands.</li>
+                        <li>Open the URL Claude gives you in your browser. Confirm the portfolio site loads.</li>
+                        <li>Ask Claude: <strong>"Now stop the server."</strong> — test that you can control what's running.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Claude Code isn't just a chatbot — it executes real commands on your machine. You just verified it can check system info, run servers, and manage processes. That's the "agentic" difference.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -582,6 +656,24 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Ask Claude Code: <strong>"Read the CLAUDE.md file and tell me what you know about this project."</strong> Watch how it uses CLAUDE.md as its first source of truth — just like Googlebot reads robots.txt first.</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Audit and Improve Your Own CLAUDE.md</h5>
+                    <p>Your Project Alpha already has a CLAUDE.md. Let's test how well it works — like auditing your own robots.txt.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"Read the CLAUDE.md and tell me everything you know about this project, the owner, and how you should behave."</strong> — see what Claude absorbed.</li>
+                        <li>Ask Claude: <strong>"What's missing from this CLAUDE.md that would help you work better in this project?"</strong> — get improvement suggestions.</li>
+                        <li>Now test prompt specificity. Ask these two prompts and compare the results:
+                            <ul>
+                                <li>Vague: <strong>"Tell me about the dental site"</strong></li>
+                                <li>Specific: <strong>"Read experiments/02-dental-clinic/script.js and explain the chatbot state machine — what are states 0 through 5, and what happens in each?"</strong></li>
+                            </ul>
+                        </li>
+                        <li>Notice the quality difference. The specific prompt is your "long-tail keyword" — it gets exactly what you need.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> CLAUDE.md directly shapes Claude's understanding (like robots.txt directives). Specific prompts outperform vague ones (like long-tail vs. head terms). You just experienced both principles firsthand.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -652,6 +744,20 @@ This is a learning lab for AI implementation.
                     <p>Ask Claude Code: <strong>"Read experiments/02-dental-clinic/index.html and list every SEO issue you find — missing meta tags, heading hierarchy problems, missing alt text, etc."</strong></p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Run a Full Read-Find-Edit-Verify Cycle</h5>
+                    <p>This is your core workflow loop — like crawl → audit → fix → verify in SEO. Do it end-to-end on a real file.</p>
+                    <ol>
+                        <li><strong>Read:</strong> Ask Claude: <strong>"Read experiments/01-portfolio/index.html and summarize its structure — what sections exist, what meta tags are present, what's the heading hierarchy?"</strong></li>
+                        <li><strong>Find:</strong> Ask Claude: <strong>"Find all HTML files across experiments/ that are missing a meta description tag."</strong></li>
+                        <li><strong>Edit:</strong> Pick one file from the results and ask: <strong>"Add a proper meta description to experiments/01-portfolio/index.html. Make it relevant to a portfolio site, under 155 characters."</strong></li>
+                        <li><strong>Verify:</strong> Ask Claude: <strong>"Show me the diff — what exactly did you change in that file?"</strong></li>
+                        <li><strong>Bonus:</strong> Ask Claude: <strong>"Now do the same for all HTML files in experiments/02-dental-clinic/ — add meta descriptions to any that are missing them."</strong> Watch it handle a batch operation.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> The read → find → edit → verify cycle. This is 80% of what you'll do with Claude Code daily. You also just saw batch operations — like running a bulk fix across multiple pages.</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>Claude Code remembers your conversation context within a session. You can say "now fix issue #3 from that list" and it knows exactly what you mean — like how Google understands search refinements.</p>
@@ -710,6 +816,20 @@ This is a learning lab for AI implementation.
                     <p>Ask Claude Code to edit a file — notice how it asks for your permission before making changes. Then try: <strong>"Show me the current .claude/settings.json"</strong> to see your permission configuration.</p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Configure Your Own Permission Rules</h5>
+                    <p>Time to set up your access controls — like writing your own robots.txt rules.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"Show me the current .claude/settings.json and explain what each permission rule does."</strong></li>
+                        <li>Ask Claude: <strong>"Add a permission that allows running 'npx serve' commands without asking me each time."</strong> — watch it edit the settings file.</li>
+                        <li>Test it: Ask Claude to start a server. It should run without asking for permission now.</li>
+                        <li>Now try something Claude will block: Ask Claude: <strong>"Delete the experiments folder."</strong> — notice how it asks for confirmation on destructive actions, even if you haven't explicitly denied it.</li>
+                        <li><strong>Don't approve the delete!</strong> Deny it. You just saw the safety net in action.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Permissions are your safety layer. You pre-approve routine actions (like allowing Googlebot to crawl) and block dangerous ones (like preventing index of admin pages). Start tight, loosen as you learn.</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>Start restrictive (approve everything manually) and gradually open up permissions as you gain confidence — just like you'd start with a restrictive robots.txt and expand access as you verify things work.</p>
@@ -763,6 +883,22 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Run the full audit workflow above. Then do the same for <strong>experiments/02-dental-clinic/index.html</strong>. Compare the issues found — every site has different problems, just like every client site.</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Full SEO Audit & Fix — Three Sites, One Workflow</h5>
+                    <p>You're going to audit all three experiment sites for SEO issues, fix them, and commit the improvements. This is your capstone for Day 1.</p>
+                    <ol>
+                        <li><strong>Audit Site 1:</strong> Ask Claude: <strong>"Audit experiments/01-portfolio/index.html for SEO: check meta title, meta description, Open Graph tags, heading hierarchy (only one H1?), alt text on images, semantic HTML (header/main/footer), and mobile viewport tag. Give me a scored report."</strong></li>
+                        <li><strong>Fix Site 1:</strong> Ask Claude: <strong>"Fix all the SEO issues you found. Don't change the visual design."</strong></li>
+                        <li><strong>Audit Site 2:</strong> Ask Claude: <strong>"Now do the same SEO audit for experiments/02-dental-clinic/index.html."</strong></li>
+                        <li><strong>Fix Site 2:</strong> Ask Claude to fix those issues too.</li>
+                        <li><strong>Compare:</strong> Ask Claude: <strong>"Compare the SEO issues found in the portfolio vs. dental clinic. Which site had better SEO out of the box? Why?"</strong></li>
+                        <li><strong>Prevent:</strong> Ask Claude: <strong>"Based on the issues you found across both sites, add an 'SEO Standards' section to CLAUDE.md that will prevent these issues in future files I create."</strong></li>
+                        <li><strong>Commit:</strong> Ask Claude: <strong>"Commit all these SEO improvements with a good commit message."</strong></li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> End-to-end workflow: audit → fix → compare → prevent → commit. You just did in minutes what would take hours manually. More importantly, you used CLAUDE.md to create preventive rules — turning a one-time fix into a permanent standard. That's the AI implementation mindset.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -825,6 +961,19 @@ This is a learning lab for AI implementation.
                     <p>Take a task you'd normally do manually and write it as a Level 4 prompt. For example: <strong>"Audit all HTML files in experiments/ for proper heading hierarchy (only one H1, logical H2-H6 nesting). List violations in a table, then fix them."</strong></p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>The Prompt Specificity Challenge</h5>
+                    <p>Write 4 prompts for the same task at increasing specificity levels. Watch how output quality scales with prompt quality — exactly like keyword specificity.</p>
+                    <ol>
+                        <li><strong>Level 1 (head term):</strong> Ask Claude: <strong>"Improve the dental site."</strong> — note how vague the response is.</li>
+                        <li><strong>Level 2 (mid-tail):</strong> Ask Claude: <strong>"Improve the CSS performance of the dental site."</strong></li>
+                        <li><strong>Level 3 (long-tail):</strong> Ask Claude: <strong>"In experiments/02-dental-clinic/style.css, find any duplicate CSS rules, unused selectors, and opportunities to use CSS variables instead of hardcoded colors."</strong></li>
+                        <li><strong>Level 4 (expert brief):</strong> Ask Claude: <strong>"Audit experiments/02-dental-clinic/style.css for performance. Specifically: 1) Find duplicate rules and merge them. 2) Identify selectors not used in any HTML file in that folder. 3) Replace hardcoded colors with CSS variables. 4) Report what you changed in a table. Don't change any visual appearance."</strong></li>
+                    </ol>
+                    <p><strong>Reflect:</strong> Compare the four responses. Which gave you actionable results? Which wasted your time? The jump from Level 2 to Level 3 is usually the biggest quality leap — just like going from "shoes" to "trail running shoes for flat feet."</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>The best prompts include both what you want AND what you don't want. Just like a good SEO brief specifies target keywords AND keywords to avoid cannibalizing.</p>
@@ -872,6 +1021,20 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Ask Claude Code: <strong>"Plan how you would restructure the dental clinic site to improve its SEO architecture — better URL structure, internal linking, and content hierarchy. Don't change anything yet."</strong> Review the plan it creates.</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Plan a Feature, Then Execute It</h5>
+                    <p>Use Plan Mode to design a real enhancement, review the plan, then execute it — like creating an SEO strategy deck before implementing changes.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"Plan how you would add a dark/light theme toggle to experiments/01-portfolio/index.html. Consider: where to put the toggle button, how to store the user's preference, what CSS variables need to change, and how to make the transition smooth. Don't change anything yet — just plan."</strong></li>
+                        <li>Read the plan Claude creates. Does it make sense? Would you approach it differently?</li>
+                        <li>Ask Claude: <strong>"What are the risks or edge cases in this plan?"</strong> — practice critical review.</li>
+                        <li>If you like the plan, tell Claude: <strong>"Execute the plan."</strong> If you want changes, tell Claude what to adjust first.</li>
+                        <li>Open the portfolio site in your browser and test the toggle. Does it work? Does the preference persist on reload?</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Plan Mode separates thinking from doing. You reviewed a strategy before committing resources — exactly like presenting an SEO roadmap to a client before starting work. This habit prevents wasted effort and catches issues early.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -929,6 +1092,22 @@ This is a learning lab for AI implementation.
                     <p>Ask Claude Code: <strong>"Show me the git log for this project."</strong> You should see the commits from when we restructured Project Alpha. Then try: <strong>"Create a new branch called 'experiment', make a small change, commit it, and switch back to main."</strong></p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>The Branch-Edit-Commit-Merge Workflow</h5>
+                    <p>Practice the full git workflow through Claude Code — like managing a staging environment for SEO changes before pushing to production.</p>
+                    <ol>
+                        <li><strong>Check history:</strong> Ask Claude: <strong>"Show me the git log. What commits exist so far?"</strong></li>
+                        <li><strong>Create a branch:</strong> Ask Claude: <strong>"Create a new branch called 'add-favicon' and switch to it."</strong> — this is your staging environment.</li>
+                        <li><strong>Make a change:</strong> Ask Claude: <strong>"Add a favicon link tag to experiments/01-portfolio/index.html. Use a placeholder URL for now."</strong></li>
+                        <li><strong>Commit on the branch:</strong> Ask Claude: <strong>"Commit this change with a descriptive message."</strong></li>
+                        <li><strong>Compare:</strong> Ask Claude: <strong>"Show me the difference between this branch and main/master."</strong></li>
+                        <li><strong>Merge:</strong> Ask Claude: <strong>"Switch back to the main branch and merge add-favicon into it."</strong></li>
+                        <li><strong>Verify:</strong> Ask Claude: <strong>"Show the git log again. Can I see both the branch commit and the merge?"</strong></li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Branches = staging environments. You tested a change in isolation, reviewed it, then deployed (merged) to production. If the change was wrong, you could have deleted the branch with zero impact — like rolling back a staging deploy.</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>Use the /commit slash command for quick commits. Claude Code will analyze your changes, draft a good commit message, and handle staging — like having a content editor who writes your meta descriptions for you.</p>
@@ -980,6 +1159,19 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Ask Claude Code: <strong>"What MCP servers are currently connected? List any available tools."</strong> Then explore: <strong>"Explain what MCP servers would be most useful for a web developer."</strong></p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Discover What's Already Connected</h5>
+                    <p>Before adding new integrations, audit what you already have — like checking which Google properties are already connected in Search Console.</p>
+                    <ol>
+                        <li>Ask Claude: <strong>"What tools do you currently have access to? List them by category — file tools, search tools, command tools, etc."</strong></li>
+                        <li>Ask Claude: <strong>"Are any MCP servers currently connected? If so, what can they do?"</strong></li>
+                        <li>Ask Claude: <strong>"Explain MCP to me like I'm an SEO pro. What's a 'server' in MCP terms? What's a 'tool'? Give me the analogy to Ahrefs or Screaming Frog APIs."</strong></li>
+                        <li><strong>Explore:</strong> Ask Claude: <strong>"If I wanted to give you the ability to search the web or access a database, how would I set that up with MCP? Walk me through the config file changes."</strong></li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> MCP is about extending Claude's capabilities — like adding plugins to your SEO toolkit. You don't need to add any right now, but understanding the concept prepares you for Phase 3 of your roadmap where you'll build custom MCP servers.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -1034,6 +1226,20 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Ask Claude Code: <strong>"Compare the CSS architecture across all three experiments. Which patterns are shared? Which are unique? Create a summary table."</strong> This exercises Claude's ability to reason across multiple files.</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Cross-Site Consistency Audit & Fix</h5>
+                    <p>Manage SEO consistency across a multi-page site — like ensuring every page on a client's site has consistent nav, footer, and meta tags.</p>
+                    <ol>
+                        <li><strong>Audit consistency:</strong> Ask Claude: <strong>"Check all 8 HTML files in experiments/02-dental-clinic/ and create a table showing: which have meta descriptions, which have Open Graph tags, which have consistent nav links, and which have consistent footer content."</strong></li>
+                        <li><strong>Find inconsistencies:</strong> Ask Claude: <strong>"Which dental clinic pages have navigation links that don't match each other? List the differences."</strong></li>
+                        <li><strong>Batch fix:</strong> Ask Claude: <strong>"Make the navigation consistent across ALL dental clinic HTML files. Use the nav from index.html as the source of truth. Don't change anything else."</strong></li>
+                        <li><strong>Verify:</strong> Ask Claude: <strong>"Re-run the consistency check. Are all pages now consistent?"</strong></li>
+                        <li><strong>Commit:</strong> Ask Claude to commit with a message describing the cross-page consistency fix.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Multi-file operations are where Claude Code truly shines over manual work. You just audited and fixed 8 files in minutes. This is like running Screaming Frog across a site, finding inconsistencies, and fixing them in bulk — but for code, not just SEO tags.</p>
                 </div>
 
                 <div class="pro-tip">
@@ -1097,6 +1303,19 @@ This is a learning lab for AI implementation.
                     <p>Try these commands: <strong>/help</strong> to see available commands, then make a small change to any file and use <strong>/commit</strong> to see the smart commit flow in action.</p>
                 </div>
 
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Build Your First Automated Workflow</h5>
+                    <p>Chain together commands and test the slash command workflow — like setting up a recurring Screaming Frog crawl with saved configs.</p>
+                    <ol>
+                        <li><strong>Try /commit:</strong> Make a small change to any file (even just adding a comment). Then type <strong>/commit</strong> and watch Claude analyze the diff, draft a commit message, and handle the entire flow.</li>
+                        <li><strong>Try /clear:</strong> After the commit, type <strong>/clear</strong>. Now ask Claude about the project — notice it re-reads CLAUDE.md to rebuild context. This is like a fresh crawl with clean cache.</li>
+                        <li><strong>Chain a workflow:</strong> In a single message, ask Claude: <strong>"Do these steps in order: 1) Check git status 2) If there are uncommitted changes, show me what they are 3) Add a comment to experiments/03-10pearls-clone/script.js explaining what the IntersectionObserver does 4) Commit with message 'Add code comment for learning reference'"</strong></li>
+                        <li><strong>Try /help:</strong> Type <strong>/help</strong> and explore what other commands are available. Pick one you haven't tried and test it.</li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> Slash commands are shortcuts for common workflows. Chaining steps in a single message creates mini-automations. And /clear is your secret weapon for resetting context when switching tasks — use it like clearing browser cache before testing.</p>
+                </div>
+
                 <div class="pro-tip">
                     <div class="pro-tip-label">Pro Tip</div>
                     <p>Use /clear liberally. When you switch tasks, clear the context — it's like starting a fresh crawl session instead of carrying stale data from the last audit.</p>
@@ -1143,6 +1362,21 @@ This is a learning lab for AI implementation.
                 <div class="try-it">
                     <div class="try-it-label">Try It</div>
                     <p>Practice the learning habit: Ask Claude to make any change, then ask <strong>"Why did you do it that way? What alternatives did you consider?"</strong> — this is how you learn the fastest.</p>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-label">Hands-On Activity</div>
+                    <h5>Build Something New From Scratch</h5>
+                    <p>Combine everything you've learned into one project. This is your Day 2 capstone — like delivering a complete SEO strategy to a client.</p>
+                    <ol>
+                        <li><strong>Create a new experiment:</strong> Ask Claude: <strong>"Create a new folder experiments/04-learning-log/ with an index.html file. Make it a simple, clean page where I can track what I learn each day. Dark theme, minimal CSS, a form that saves entries to localStorage, and a list that displays past entries. Use the same Inter font as the portfolio."</strong></li>
+                        <li><strong>Review before approving:</strong> When Claude shows you the edits, actually read the code. Ask questions about anything you don't understand: <strong>"Why did you use addEventListener instead of onclick?"</strong></li>
+                        <li><strong>Test it:</strong> Ask Claude to start a local server and open it in your browser. Add a few entries. Refresh the page — do they persist?</li>
+                        <li><strong>Improve it:</strong> Ask Claude: <strong>"Add the ability to delete individual entries and add a date stamp to each one."</strong></li>
+                        <li><strong>Update CLAUDE.md:</strong> Ask Claude: <strong>"Add experiment 04-learning-log to the experiments list in CLAUDE.md."</strong></li>
+                        <li><strong>Commit & push:</strong> Ask Claude: <strong>"Commit everything and push to GitHub."</strong></li>
+                    </ol>
+                    <p><strong>What you're learning:</strong> You just used every skill from both days: prompting, file creation, code review, testing, CLAUDE.md updates, git workflow, and GitHub. If you completed this, you're ready for the real work in the roadmap.</p>
                 </div>
 
                 <div class="pro-tip">
