@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Empire Smile internal admin dashboard for managing dental leads and appointments.">
+    <meta name="robots" content="noindex, nofollow">
     <title>Empire Smile | Admin Backend Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
@@ -14,6 +16,79 @@
             background: #f1f5f9;
             display: flex;
             height: 100vh;
+        }
+
+        /* Auth overlay */
+        .auth-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .auth-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 380px;
+            width: 90%;
+        }
+
+        .auth-box h2 {
+            margin: 0 0 0.5rem;
+            color: #0f172a;
+        }
+
+        .auth-box p {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .auth-box input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .auth-box input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px #e0f2fe;
+        }
+
+        .auth-box button {
+            width: 100%;
+            padding: 0.875rem;
+            background: #0ea5e9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .auth-box button:hover {
+            background: #0284c7;
+        }
+
+        .auth-error {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
         }
 
         .sidebar {
@@ -155,20 +230,39 @@
             transform: translateY(-2px);
             background: #0284c7;
         }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; padding: 1rem; display: flex; gap: 0.5rem; overflow-x: auto; }
+            .sidebar h2 { display: none; }
+            .main-content { padding: 1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Auth Gate -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-box">
+            <h2>🔒 Admin Access</h2>
+            <p>Enter the dashboard password to view leads.</p>
+            <input type="password" id="authPassword" placeholder="Enter password" autofocus>
+            <button onclick="checkAuth()">Unlock Dashboard</button>
+            <div class="auth-error" id="authError">Incorrect password. Try again.</div>
+        </div>
+    </div>
+
     <div class="sidebar">
         <h2>Empire Smile</h2>
         <a href="#" class="nav-item active">Lead Dashboard</a>
         <a href="#" class="nav-item"
-            onclick="if(confirm('Delete all leads?')){localStorage.removeItem('dentalLeads'); location.reload();}">Clear
+            onclick="if(confirm('Delete all leads? This cannot be undone.')){localStorage.removeItem('dentalLeads'); location.reload();}">Clear
             CRM Data</a>
         <a href="index.html" class="nav-item" target="_blank">View Live Website ↗</a>
     </div>
 
-    <div class="main-content">
+    <main class="main-content">
         <div class="header">
             <div>
                 <h1 style="margin:0; color:#0f172a;">Sales CRM</h1>
@@ -204,7 +298,6 @@
                     </tr>
                 </thead>
                 <tbody id="leadsTableBody">
-                    <!-- Javascript injects lead rows here -->
                 </tbody>
             </table>
             <div id="emptyState" class="empty-state">
@@ -213,24 +306,46 @@
                     instantly.</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <script>
+        // Auth gate — password is "empire2026" (basic client-side protection)
+        const DASHBOARD_PASSWORD = 'empire2026';
+        const AUTH_KEY = 'empireSmile_authed';
+
+        function checkAuth() {
+            const input = document.getElementById('authPassword');
+            if (input.value === DASHBOARD_PASSWORD) {
+                sessionStorage.setItem(AUTH_KEY, 'true');
+                document.getElementById('authOverlay').style.display = 'none';
+            } else {
+                document.getElementById('authError').style.display = 'block';
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('authPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAuth();
+        });
+
+        // Skip auth if already authenticated this session
+        if (sessionStorage.getItem(AUTH_KEY) === 'true') {
+            document.getElementById('authOverlay').style.display = 'none';
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            // Fetch leads from localStorage
             const leads = JSON.parse(localStorage.getItem('dentalLeads')) || [];
             const tbody = document.getElementById('leadsTableBody');
             const emptyState = document.getElementById('emptyState');
 
-            // Populate stats
             document.getElementById('totalLeads').textContent = leads.length;
             document.getElementById('heroLeads').textContent = leads.filter(l => l.source === 'Hero Form').length;
             document.getElementById('agentLeads').textContent = leads.filter(l => l.source === 'Live Agent').length;
 
-            // Render table rows
             if (leads.length > 0) {
                 emptyState.style.display = 'none';
-                // Reverse to show newest first
                 leads.reverse().forEach(lead => {
                     const tr = document.createElement('tr');
                     const badgeClass = lead.source === 'Live Agent' ? 'badge-agent' : 'badge-hero';

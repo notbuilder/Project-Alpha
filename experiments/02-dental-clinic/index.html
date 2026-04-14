@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Premier Dental Care in New York. Book your appointment today for a brighter, healthier smile.">
+    <meta property="og:title" content="Empire Smile | New York Dental Clinic">
+    <meta property="og:description" content="Premier Dental Care in New York. Book your appointment today for a brighter, healthier smile.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="index.html">
     <title>Empire Smile | New York Dental Clinic</title>
     <!-- Modern Typography: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,133 +22,162 @@
 <body>
 
     <!-- Sticky Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">Our Practice</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="navbar" id="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
+                </a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">&#9776;</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="text-primary">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="general-dentistry.html">General</a></li>
+                    <li><a href="cosmetic-dentistry.html">Cosmetic</a></li>
+                    <li><a href="dental-implants.html">Implants</a></li>
+                    <li><a href="orthodontics.html">Orthodontics</a></li>
+                    <li><a href="emergency-care.html">Emergency</a></li>
+                    <li><a href="pediatric-care.html">Pediatric</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
     <!-- Hero Section with Lead Form -->
-    <section class="hero" id="home">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="badge">Top Rated Clinic in NY</div>
-                <h1 class="hero-title">Experience <span class="text-primary">World-Class</span> Dental Care in New York
-                </h1>
-                <p class="hero-desc">From routine checkups to full cosmetic makeovers, our expert team utilizes
-                    state-of-the-art technology to give you the smile you deserve.</p>
-                <div class="trust-indicators">
-                    <span>✅ 5-Star Reviews</span>
-                    <span>✅ Modern Technology</span>
-                    <span>✅ Gentle Care</span>
-                </div>
-            </div>
-
-            <div class="hero-form-wrapper">
-                <form class="lead-form" id="leadForm">
-                    <h3>Request an Appointment</h3>
-                    <p>Fill out the form below and we will contact you immediately.</p>
-
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+    <main>
+        <section class="hero" id="home">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge">Top Rated Clinic in NY</div>
+                    <h1 class="hero-title">Experience <span class="text-primary">World-Class</span> Dental Care in New York
+                    </h1>
+                    <p class="hero-desc">From routine checkups to full cosmetic makeovers, our expert team utilizes
+                        state-of-the-art technology to give you the smile you deserve.</p>
+                    <div class="trust-indicators">
+                        <span>✅ 5-Star Reviews</span>
+                        <span>✅ Modern Technology</span>
+                        <span>✅ Gentle Care</span>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="(212) 555-0198" required>
+                <div class="hero-form-wrapper">
+                    <form class="lead-form" id="leadForm">
+                        <h3>Request an Appointment</h3>
+                        <p>Fill out the form below and we will contact you immediately.</p>
+
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(212) 555-0198" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="service">Service Needed</label>
+                            <select id="service" name="service" required>
+                                <option value="">Select a service...</option>
+                                <option value="Routine Checkup">Routine Checkup</option>
+                                <option value="Teeth Whitening">Teeth Whitening</option>
+                                <option value="Dental Implants">Dental Implants</option>
+                                <option value="Invisalign & Braces">Invisalign & Braces</option>
+                                <option value="Emergency Care">Emergency Care</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Get My Free Consultation</button>
+                        <p class="privacy">Your information is 100% secure.</p>
+                    </form>
+
+                    <div id="formSuccess" class="form-success hidden">
+                        <div class="success-icon">✓</div>
+                        <h3>Request Received!</h3>
+                        <p>Thank you for reaching out. Our New York office booking team will call you within the next 15
+                            minutes to confirm your appointment.</p>
                     </div>
-
-                    <div class="form-group">
-                        <label for="service">Service Needed</label>
-                        <select id="service" name="service" required>
-                            <option value="">Select a service...</option>
-                            <option value="routine_checkup">Routine Checkup</option>
-                            <option value="teeth_whitening">Teeth Whitening</option>
-                            <option value="implants">Dental Implants</option>
-                            <option value="invisalign">Invisalign & Braces</option>
-                            <option value="emergency">Emergency Care</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block">Get My Free Consultation</button>
-                    <p class="privacy">Your information is 100% secure.</p>
-                </form>
-
-                <div id="formSuccess" class="form-success hidden">
-                    <div class="success-icon">✓</div>
-                    <h3>Request Received!</h3>
-                    <p>Thank you for reaching out. Our New York office booking team will call you within the next 15
-                        minutes to confirm your appointment.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section class="section bg-light" id="services">
-        <div class="container">
-            <div class="section-header text-center">
-                <h2>Our <span class="text-primary">Services</span></h2>
-                <p>Comprehensive dental care tailored to your unique needs.</p>
+        <!-- Services Section -->
+        <section class="section bg-light" id="services">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Our <span class="text-primary">Services</span></h2>
+                    <p>Comprehensive dental care tailored to your unique needs.</p>
+                </div>
+
+                <div class="services-grid">
+                    <a href="general-dentistry.html" class="service-card">
+                        <article>
+                            <div class="service-icon">📋</div>
+                            <h3>General Dentistry</h3>
+                            <p>Bi-annual checkups, professional cleanings, digital X-rays, and cavity prevention to keep your
+                                smile healthy.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+
+                    <a href="cosmetic-dentistry.html" class="service-card">
+                        <article>
+                            <div class="service-icon">✨</div>
+                            <h3>Cosmetic Dentistry</h3>
+                            <p>Professional teeth whitening, porcelain veneers, and complete smile makeovers to boost your
+                                confidence.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+
+                    <a href="dental-implants.html" class="service-card">
+                        <article>
+                            <div class="service-icon">🔩</div>
+                            <h3>Dental Implants</h3>
+                            <p>Permanent, natural-looking replacement teeth using cutting-edge implant technology for missing
+                                teeth.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+
+                    <a href="orthodontics.html" class="service-card">
+                        <article>
+                            <div class="service-icon">🦷</div>
+                            <h3>Orthodontics</h3>
+                            <p>Invisalign clear aligners and traditional braces for patients of all ages to achieve perfect
+                                alignment.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+
+                    <a href="emergency-care.html" class="service-card">
+                        <article>
+                            <div class="service-icon">🏥</div>
+                            <h3>Emergency Care</h3>
+                            <p>Same-day emergency appointments for severe toothaches, broken teeth, or lost crowns.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+
+                    <a href="pediatric-care.html" class="service-card">
+                        <article>
+                            <div class="service-icon">👶</div>
+                            <h3>Pediatric Care</h3>
+                            <p>Gentle and compassionate dental care creating a positive experience for your children.</p>
+                            <span class="card-link">Learn More →</span>
+                        </article>
+                    </a>
+                </div>
             </div>
-
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📋</div>
-                    <h3>General Dentistry</h3>
-                    <p>Bi-annual checkups, professional cleanings, digital X-rays, and cavity prevention to keep your
-                        smile healthy.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">✨</div>
-                    <h3>Cosmetic Dentistry</h3>
-                    <p>Professional teeth whitening, porcelain veneers, and complete smile makeovers to boost your
-                        confidence.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🔩</div>
-                    <h3>Dental Implants</h3>
-                    <p>Permanent, natural-looking replacement teeth using cutting-edge implant technology for missing
-                        teeth.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🦷</div>
-                    <h3>Orthodontics</h3>
-                    <p>Invisalign clear aligners and traditional braces for patients of all ages to achieve perfect
-                        alignment.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">🏥</div>
-                    <h3>Emergency Care</h3>
-                    <p>Same-day emergency appointments for severe toothaches, broken teeth, or lost crowns.</p>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">👶</div>
-                    <h3>Pediatric Care</h3>
-                    <p>Gentle and compassionate dental care creating a positive experience for your children.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container footer-container">
             <div class="footer-col">
-                <a href="#" class="logo footer-logo">
+                <a href="index.html" class="logo footer-logo">
                     <span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span>
                 </a>
                 <p>Delivering exceptional dental care to the heart of New York City.</p>

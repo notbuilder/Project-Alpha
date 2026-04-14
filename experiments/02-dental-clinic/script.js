@@ -9,6 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ---- 1b. Hamburger Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+    }
+
     // ---- 2. Global Save Lead Function (to localStorage)
     const saveLead = (leadData) => {
         const existing = JSON.parse(localStorage.getItem('dentalLeads')) || [];
@@ -38,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const type = inp.type || inp.tagName.toLowerCase();
                 const val = inp.value;
                 if (type === 'tel') data.phone = val;
-                else if (inp.tagName.toLowerCase() === 'select') data.service = val;
+                else if (inp.tagName.toLowerCase() === 'select') data.service = inp.options[inp.selectedIndex].text;
                 else if (type === 'text') data.name = val;
             });
 

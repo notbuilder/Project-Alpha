@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Same-day emergency dental care in New York. Immediate relief for toothaches, broken teeth, and lost crowns at Empire Smile.">
+    <meta property="og:title" content="Emergency Dental Care | Empire Smile">
+    <meta property="og:description" content="Same-day emergency dental care in New York. Immediate relief for toothaches, broken teeth, and lost crowns.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="emergency-care.html">
     <title>Emergency Dental Care | Empire Smile</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -17,112 +22,92 @@
             margin-top: 2rem;
             object-fit: cover;
             max-height: 400px;
+            background: #fee2e2;
         }
 
         @keyframes pulse-red {
-            0% {
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
-            }
-
-            100% {
-                box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
-            }
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            100% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
         }
 
         @keyframes alertFlash {
-            0% {
-                background-color: #fee2e2;
-            }
-
-            50% {
-                background-color: white;
-            }
-
-            100% {
-                background-color: #fee2e2;
-            }
+            0% { background-color: #fee2e2; }
+            50% { background-color: white; }
+            100% { background-color: #fee2e2; }
         }
 
         .hero-bg {
             background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(254, 226, 226, 0.8)), url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
         }
 
-        .hero-title span {
-            color: #ef4444;
-        }
-
-        .btn-urgent {
-            background-color: #ef4444 !important;
-        }
-
-        .btn-urgent:hover {
-            background-color: #dc2626 !important;
-            box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4) !important;
-        }
-
-        .hero-form-wrapper {
-            animation: alertFlash 4s infinite;
-            border-color: #fca5a5;
-        }
+        .hero-title span { color: #ef4444; }
+        .btn-urgent { background-color: #ef4444 !important; }
+        .btn-urgent:hover { background-color: #dc2626 !important; box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.4) !important; }
+        .hero-form-wrapper { animation: alertFlash 4s infinite; border-color: #fca5a5; }
     </style>
 </head>
 
 <body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo"><span class="logo-icon">🏥</span> Empire<span
-                    class="text-primary">Smile</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="emergency-care.html" style="color: #ef4444;">Emergency Care</a></li>
-                <li><a href="general-dentistry.html">General Exam</a></li>
-            </ul>
-        </div>
-    </nav>
+    <header>
+        <nav class="navbar" id="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span></a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">&#9776;</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="general-dentistry.html">General</a></li>
+                    <li><a href="cosmetic-dentistry.html">Cosmetic</a></li>
+                    <li><a href="dental-implants.html">Implants</a></li>
+                    <li><a href="orthodontics.html">Orthodontics</a></li>
+                    <li><a href="emergency-care.html" style="color: #ef4444;">Emergency</a></li>
+                    <li><a href="pediatric-care.html">Pediatric</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <section class="hero hero-bg">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="badge" style="background:#fef2f2; color:#ef4444; border: 1px solid #fecaca;">Same-Day
-                    Appointments Available</div>
-                <h1 class="hero-title">In Pain? Get Seen <span>Today.</span></h1>
-                <p class="hero-desc">Severe toothaches, broken teeth, or lost crowns require immediate attention. Our
-                    emergency dental team stops the pain fast and saves your smile.</p>
-                <div class="trust-indicators">
-                    <span style="color:#ef4444;">🚨 Fast Pain Relief</span>
-                    <span style="color:#ef4444;">🚨 Walk-ins Welcome</span>
+    <main>
+        <section class="hero hero-bg">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge" style="background:#fef2f2; color:#ef4444; border: 1px solid #fecaca;">Same-Day Appointments Available</div>
+                    <h1 class="hero-title">In Pain? Get Seen <span>Today.</span></h1>
+                    <p class="hero-desc">Severe toothaches, broken teeth, or lost crowns require immediate attention. Our
+                        emergency dental team stops the pain fast and saves your smile.</p>
+                    <div class="trust-indicators">
+                        <span style="color:#ef4444;">🚨 Fast Pain Relief</span>
+                        <span style="color:#ef4444;">🚨 Walk-ins Welcome</span>
+                    </div>
+                </div>
+
+                <div class="hero-form-wrapper">
+                    <form class="lead-form" id="leadForm">
+                        <h3 style="color: #ef4444;">Request Immediate Callback</h3>
+                        <p>We prioritize dental emergencies. Enter your info and we will call you in 2 minutes.</p>
+                        <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" placeholder="John Doe" required></div>
+                        <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" placeholder="(212) 555-0198" required></div>
+                        <div class="form-group"><label for="service">Nature of Emergency</label>
+                            <select id="service" required>
+                                <option value="">Select issue...</option>
+                                <option value="Severe Toothache">Severe Toothache</option>
+                                <option value="Broken/Chipped Tooth">Broken/Chipped Tooth</option>
+                                <option value="Lost Crown/Filling">Lost Crown/Filling</option>
+                                <option value="Knocked Out Tooth">Knocked Out Tooth</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block btn-urgent">Call Me Immediately</button>
+                        <p class="privacy">Call us directly at (212) 555-0198 if bleeding is severe.</p>
+                    </form>
+                    <div id="formSuccess" class="form-success hidden">
+                        <div class="success-icon" style="background-color: #ef4444;">!</div>
+                        <h3 style="color: #ef4444;">Request Sent!</h3>
+                        <p>Keep your phone nearby. Our reception team is dialing your number right now to get you in
+                            immediately.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="hero-form-wrapper">
-                <form class="lead-form" id="leadForm">
-                    <h3 style="color: #ef4444;">Request Immediate Callback</h3>
-                    <p>We prioritize dental emergencies. Enter your info and we will call you in 2 minutes.</p>
-                    <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(212) 555-0198"
-                            required></div>
-                    <div class="form-group"><label>Nature of Emergency</label>
-                        <select required>
-                            <option value="">Select issue...</option>
-                            <option>Severe Toothache</option>
-                            <option>Broken/Chipped Tooth</option>
-                            <option>Lost Crown/Filling</option>
-                            <option>Knocked Out Tooth</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block btn-urgent">Call Me Immediately</button>
-                    <p class="privacy">Call us directly at (212) 555-0198 if bleeding is severe.</p>
-                </form>
-                <div id="formSuccess" class="form-success hidden">
-                    <div class="success-icon" style="background-color: #ef4444;">!</div>
-                    <h3 style="color: #ef4444;">Request Sent!</h3>
-                    <p>Keep your phone nearby. Our reception team is dialing your number right now to get you in
-                        immediately.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>

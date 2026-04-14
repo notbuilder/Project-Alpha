@@ -352,6 +352,37 @@ body {
     font-size: 0.9rem;
 }
 
+/* Hamburger button */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.6rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+/* Service card as link */
+a.service-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: gap 0.3s;
+}
+
+a.service-card:hover .card-link {
+    text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .hero-container {
@@ -362,7 +393,39 @@ body {
         font-size: 2.5rem;
     }
 
+    .hamburger {
+        display: block;
+    }
+
     .nav-links {
         display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(8px);
+        padding: 1rem 0;
+        border-bottom: 1px solid #e2e8f0;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        gap: 0;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links li {
+        list-style: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 0.75rem 2rem;
+    }
+
+    .nav-links a:hover {
+        background: var(--primary-light);
     }
 }

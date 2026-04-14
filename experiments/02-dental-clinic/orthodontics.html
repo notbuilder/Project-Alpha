@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Invisalign and orthodontics in New York. Clear aligners and braces for all ages at Empire Smile. Free consultation available.">
+    <meta property="og:title" content="Invisalign & Orthodontics | Empire Smile">
+    <meta property="og:description" content="Invisalign and orthodontics in New York. Clear aligners and braces for all ages at Empire Smile.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="orthodontics.html">
     <title>Invisalign & Orthodontics | Empire Smile</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
@@ -17,97 +22,86 @@
             margin-top: 2rem;
             object-fit: cover;
             max-height: 400px;
+            background: var(--primary-light);
         }
 
         @keyframes float {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-
-            50% {
-                transform: translateY(-10px) rotate(1deg);
-            }
-
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
         }
 
         @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         .hero-bg {
             background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(240, 249, 255, 0.8)), url('https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover fixed;
         }
 
-        .hero-form-wrapper {
-            animation: fadeInRight 0.8s ease-out forwards;
-        }
+        .hero-form-wrapper { animation: fadeInRight 0.8s ease-out forwards; }
     </style>
 </head>
 
 <body>
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="index.html" class="logo"><span class="logo-icon">🦷</span> Empire<span
-                    class="text-primary">Smile</span></a>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="orthodontics.html" class="text-primary">Orthodontics</a></li>
-                <li><a href="cosmetic-dentistry.html">Cosmetic</a></li>
-                <li><a href="dental-implants.html">Implants</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section class="hero hero-bg">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <div class="badge">Diamond+ Invisalign Provider</div>
-                <h1 class="hero-title">Straighten Your Smile <span class="text-primary">Invisibly</span></h1>
-                <p class="hero-desc">Achieve the perfectly aligned smile you've always wanted without the metal mouth.
-                    Custom clear aligners that are comfortable, fast, and virtually invisible.</p>
-                <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                    alt="Smiling Woman with Clear Aligners" class="hero-img">
+    <header>
+        <nav class="navbar" id="navbar">
+            <div class="container nav-container">
+                <a href="index.html" class="logo"><span class="logo-icon">🦷</span> Empire<span class="text-primary">Smile</span></a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle navigation">&#9776;</button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="general-dentistry.html">General</a></li>
+                    <li><a href="cosmetic-dentistry.html">Cosmetic</a></li>
+                    <li><a href="dental-implants.html">Implants</a></li>
+                    <li><a href="orthodontics.html" class="text-primary">Orthodontics</a></li>
+                    <li><a href="emergency-care.html">Emergency</a></li>
+                    <li><a href="pediatric-care.html">Pediatric</a></li>
+                </ul>
             </div>
+        </nav>
+    </header>
 
-            <div class="hero-form-wrapper">
-                <form class="lead-form" id="leadForm">
-                    <h3>Free Invisalign Consultation</h3>
-                    <p>Includes a 3D simulation of your future straight smile!</p>
-                    <div class="form-group"><label>First Name</label><input type="text" placeholder="Jessica" required>
+    <main>
+        <section class="hero hero-bg">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <div class="badge">Diamond+ Invisalign Provider</div>
+                    <h1 class="hero-title">Straighten Your Smile <span class="text-primary">Invisibly</span></h1>
+                    <p class="hero-desc">Achieve the perfectly aligned smile you've always wanted without the metal mouth.
+                        Custom clear aligners that are comfortable, fast, and virtually invisible.</p>
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Woman smiling confidently wearing clear Invisalign aligners" class="hero-img">
+                </div>
+
+                <div class="hero-form-wrapper">
+                    <form class="lead-form" id="leadForm">
+                        <h3>Free Invisalign Consultation</h3>
+                        <p>Includes a 3D simulation of your future straight smile!</p>
+                        <div class="form-group"><label for="name">First Name</label><input type="text" id="name" placeholder="Jessica" required></div>
+                        <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" placeholder="(212) 555-0198" required></div>
+                        <div class="form-group"><label for="service">Treatment Interest</label>
+                            <select id="service" required>
+                                <option value="">Select treatment...</option>
+                                <option value="Invisalign - Adult">Invisalign (Adult)</option>
+                                <option value="Invisalign - Teen">Invisalign (Teen)</option>
+                                <option value="Traditional Braces">Traditional Braces</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">See My Future Smile</button>
+                        <p class="privacy">Flexible monthly payments available.</p>
+                    </form>
+                    <div id="formSuccess" class="form-success hidden">
+                        <div class="success-icon">✓</div>
+                        <h3>Consultation Booked!</h3>
+                        <p>We've secured your Free Invisalign Consultation. Our coordinator will call you shortly to confirm
+                            your time!</p>
                     </div>
-                    <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="(212) 555-0198"
-                            required></div>
-                    <div class="form-group"><label>Patient Age Group</label>
-                        <select required>
-                            <option value="">Select age...</option>
-                            <option>Adult</option>
-                            <option>Teenager</option>
-                            <option>Child</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">See My Future Smile</button>
-                    <p class="privacy">Flexible monthly payments available.</p>
-                </form>
-                <div id="formSuccess" class="form-success hidden">
-                    <div class="success-icon">✓</div>
-                    <h3>Consultation Booked!</h3>
-                    <p>We've secured your Free Invisalign Consultation. Our coordinator will call you shortly to confirm
-                        your time!</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
