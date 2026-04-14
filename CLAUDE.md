@@ -1,42 +1,66 @@
-# CLAUDE.md
+# CLAUDE.md — Project Alpha
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working in this repository.
 
-## Project Overview
+## Project Identity
 
-This is a collection of three independent static website projects by Shoaib Tariq. There is no build system, bundler, or package manager — all projects are plain HTML/CSS/JS served directly from the filesystem or any static file server.
+**Project Alpha** is Shoaib Tariq's AI Learning Lab — a personal training ground for mastering AI implementation, Claude Code, Context Engineering, MCP, and related tools. The goal is to become an AI Implementation Expert / Context Engineer within 2-3 months.
 
-## Projects
+## User Context
 
-### Root (`/`) — Personal Portfolio
-Single-page portfolio site with dark glassmorphism theme (Inter font, indigo/pink gradient accents). Scroll-reveal animations via `.reveal`/`.active` CSS class toggling in `script.js`.
+Shoaib's background is in SEO. When explaining concepts, use SEO analogies to bridge understanding:
 
-### `Dental/` — Empire Smile Dental Clinic
-Multi-page dental clinic site (Plus Jakarta Sans font, sky-blue `#0ea5e9` primary). Key features:
-- **Lead capture form** on `index.html` hero section — submissions save to `localStorage` under key `dentalLeads`
-- **Live agent chatbot widget** — injected via `injectChatWidget()` in `script.js`, uses a state-machine flow (`chatState` 0-5) to collect name/service/phone, then saves to the same `dentalLeads` localStorage
-- **Admin dashboard** (`dashboard.html`) — reads `dentalLeads` from localStorage to display a CRM table with stats; has inline `<style>` and `<script>` (no external CSS/JS)
-- **Service subpages** (`general-dentistry.html`, `cosmetic-dentistry.html`, `dental-implants.html`, `orthodontics.html`, `emergency-care.html`, `pediatric-care.html`) — share `style.css` but add page-specific styles via inline `<style>` blocks
+| AI Concept | SEO Analogy |
+|-----------|-------------|
+| CLAUDE.md | robots.txt — tells the AI how to behave in your project |
+| Context window | Crawl budget — finite resource, use it efficiently |
+| Prompts | Search queries — specificity matters, like long-tail keywords |
+| Plan mode | SEO audit — analyze before making changes |
+| Git commits | Indexing — makes changes permanent and discoverable |
+| MCP servers | API integrations — like connecting Ahrefs or Search Console |
+| Memory system | Link juice — context that flows between sessions |
+| Project structure | Site architecture — good structure helps AI navigate |
 
-### `10Pearls-Clone/` — Corporate IT Services Clone
-Single-page B2B site clone (Inter font, red `#d32f2f` primary). Uses `IntersectionObserver` for staggered scroll animations instead of the scroll-event approach used by the other projects.
+## Behavioral Directives
+
+- **Teach, don't just do.** Explain the "why" behind every action, not just the "how."
+- **Use SEO analogies** when introducing new concepts (see table above).
+- **Progressive complexity.** Start simple, layer in advanced concepts as understanding grows.
+- **Encourage experimentation.** This is a learning lab — mistakes are learning artifacts.
+
+## Folder Structure
+
+```
+Project Alpha/
+├── CLAUDE.md              ← You are here. The AI's guide to this project.
+├── roadmap.html           ← 2-3 month learning roadmap (5 phases)
+├── claude-code-guide.html ← 2-day Claude Code intensive course
+├── experiments/           ← AI-generated test outputs (learning artifacts)
+│   ├── 01-portfolio/      ← Dark glassmorphism portfolio site
+│   ├── 02-dental-clinic/  ← Multi-page dental site with chatbot + CRM
+│   └── 03-10pearls-clone/ ← B2B corporate site clone
+└── learning/              ← Structured learning modules (growing)
+    ├── context-engineering/
+    ├── mcp/
+    └── prompting/
+```
 
 ## Development
 
-Open any `index.html` directly in a browser or use any static server:
-```
-# Python
-python -m http.server 8000
+No build system, bundler, or package manager. All experiments are plain HTML/CSS/JS.
 
-# Node (npx)
+```bash
+# Open any HTML file directly in a browser, or use a static server:
+python -m http.server 8000
 npx serve .
 ```
 
-There are no tests, linters, or build steps.
+## Experiments Archive
 
-## Architecture Notes
+The `experiments/` folder contains AI-generated websites from early learning sessions:
 
-- Each project is fully self-contained with its own `index.html`, `style.css`, and `script.js`.
-- CSS variables are defined in `:root` within each project's `style.css` — each project uses a different color palette and font stack.
-- All three projects use CSS `position: fixed` navbars with scroll-shrink behavior driven by JS.
-- The Dental project is the only one with cross-page state (localStorage-based lead data shared between `index.html` chatbot/form and `dashboard.html`).
+- **01-portfolio**: Dark glassmorphism theme (Inter, indigo/pink), scroll-reveal animations
+- **02-dental-clinic**: Multi-page site with localStorage CRM, chatbot state machine, admin dashboard
+- **03-10pearls-clone**: B2B layout with IntersectionObserver animations
+
+These are reference artifacts — useful for reviewing patterns but not active development targets.
